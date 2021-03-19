@@ -65,6 +65,12 @@ int back() const{
     return vector[size-1];
 }
 
+void clear(){
+    for(int i = size; i >= 0; i--)
+        vector[i] = 0;
+    size = 0;
+}
+
 void Vector::resize(int n, int v = 0)
 {
     int *tmp = new int[n];
