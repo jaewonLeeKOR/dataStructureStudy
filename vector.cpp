@@ -83,6 +83,10 @@ void Vector::pop_back(){
     size--;
 }
 
+int* Vector::begin() const{
+    return &vector[0];
+}
+
 void Vector::resize(int n, int v = 0)
 {
     int *tmp = new int[n];
