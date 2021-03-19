@@ -38,9 +38,10 @@ public:
     int size() const;
     int capacity() const;
     //v2.swap(v1);
-    int* insert(int idx, int data, int n = 0);
+    int* insert(int idx, int data, int n = 1);
     void erase(int *iter);
     void erase(int *start, int *erase);
+    const bool empty() const;
 };
 
 void Vector::assign(int n, int data){
@@ -54,7 +55,7 @@ void Vector::assign(int n, int data){
 }
 
 int Vector::at(int idx) const{
-    return vector[idx];
+    return vector[idx]; //n번째 이므로 idx -1 로 수정 요망
 }
 
 int Vector::front() const{
@@ -118,8 +119,7 @@ void Vector::reserve(int n){
     free(tmp);
 }
 
-void Vector::resize(int n, int v = 0)
-{
+void Vector::resize(int n, int v = 0){
     reserve(n);
     int *tmp = new int[n];
     for(int i = 0; i < n; i++)
@@ -135,5 +135,19 @@ int Vector::size() const{
 
 int Vector::capacity() const{
     return capacity;
+}
+
+int* Vector::insert(int idx, int data, int n = 1){
+    if(size + n > capacity)
+        reserve(size + n);
+    for(int i = n - 1; i >= 0; i--)
+    {
+        vector[idx - 1 + n + i] = vector[idx - 1 + i];
+    }
+    for(int i = 0; i<n; i++)
+    {
+        vector[idx - 1 + i] = data;
+    }
+    size += n;
 }
 
