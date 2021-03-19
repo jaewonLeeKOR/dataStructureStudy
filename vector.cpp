@@ -92,7 +92,16 @@ int* Vector::end() const{
 }
 
 void Vector::reserve(int n){
-    int *tmp = new int[n];
+    int binary_number = 2;
+    while(true)
+    {
+        if(n / binary_number == 0)
+            break;
+        else
+            binary_number *= 2;
+    }
+    n = binary_number;
+    int *tmp = new int[n]; 
     for(int i = 0; i < n; i++)
     {
         if(i < size)
