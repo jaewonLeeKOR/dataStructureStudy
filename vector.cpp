@@ -55,7 +55,7 @@ void Vector::assign(int n, int data){
 }
 
 int Vector::at(int idx) const{
-    return vector[idx]; //n번째 이므로 idx -1 로 수정 요망
+    return vector[idx - 1];
 }
 
 int Vector::front() const{
