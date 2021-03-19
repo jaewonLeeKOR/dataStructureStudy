@@ -132,3 +132,7 @@ void Vector::resize(int n, int v = 0)
 int size() const{
     return size;
 }
+
+int Vector::capacity() const{
+    return capacity;
+}
