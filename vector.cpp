@@ -1,4 +1,4 @@
-#indlude<iostream>
+#include<iostream>
 using namespace std;
 
 struct Node{
@@ -9,11 +9,11 @@ struct Node{
 
 class Vector{
 private:
-    int size; //원소 갯수
-    int capacity; //할당된 메모리 공간
+    int m_size; //원소 갯수
+    int m_capacity; //할당된 메모리 공간
     int *vector;
 public:
-    Vector(int n = 0, int v = 0):size(n){
+    Vector(int n = 0, int v = 0):m_size(n){
         int binary_number = 2;
         while(true)
         {
@@ -22,8 +22,8 @@ public:
             else
                 binary_number *= 2;
         }
-        capacity = binary_number;   
-        int *vector = new int[capacity];
+        m_capacity = binary_number;   
+        int *vector = new int[m_capacity];
         for(int i = 0; i < n; i++)
         {
             vector[i] = v;
@@ -54,13 +54,13 @@ public:
 };
 
 void Vector::assign(int n, int data){
-    if(size + n > capacity)
-        reserve(size+n); // size + n 이 capacity를 넘어가 index error 가 날 경우를 제거
+    if(m_size + n > m_capacity)
+        reserve(m_size+n); // m_size + n 이 m_capacity를 넘어가 index error 가 날 경우를 제거
     for(int i = 0; i < n; i++)
     {
-        vector[size+i] = data;
+        vector[m_size+i] = data;
     }
-    size += n;
+    m_size += n;
 }
 
 int Vector::at(int idx) const{
@@ -72,25 +72,25 @@ int Vector::front() const{
 }
 
 int Vector::back() const{
-    return vector[size-1];
+    return vector[m_size-1];
 }
 
 void Vector::clear(){
-    for(int i = size; i >= 0; i--)
+    for(int i = m_size; i >= 0; i--)
         vector[i] = 0;
-    size = 0;
+    m_size = 0;
 }
 
 void Vector::push_back(int data){
-    if(size + 1 > capacity)
-        reserve(size+1);
-    vector[size] = data;
-    size++;
+    if(m_size + 1 > m_capacity)
+        reserve(m_size+1);
+    vector[m_size] = data;
+    m_size++;
 }
 
 void Vector::pop_back(){
-    vector[size-1] = 0;
-    size--;
+    vector[m_size-1] = 0;
+    m_size--;
 }
 
 int* Vector::begin() const{
@@ -98,7 +98,7 @@ int* Vector::begin() const{
 }
 
 int* Vector::end() const{
-    return &vector[size-1];
+    return &vector[m_size-1];
 }
 
 void Vector::reserve(int n){
@@ -114,7 +114,7 @@ void Vector::reserve(int n){
     int *tmp = new int[n]; 
     for(int i = 0; i < n; i++)
     {
-        if(i < size)
+        if(i < m_size)
         {
             tmp[i] = vector[i];
         }
@@ -123,32 +123,32 @@ void Vector::reserve(int n){
             tmp[i] = 0;
         }
     }
-    capacity = n;
+    m_capacity = n;
     vector = tmp;
     free(tmp);
 }
 
-void Vector::resize(int n, int v = 0){
-    if(n > capacity)
+void Vector::resize(int n, int v){
+    if(n > m_capacity)
         reserve(n);
-    for(int i = size - 1; i < n; i++)
+    for(int i = m_size - 1; i < n; i++)
     {
         vector[i] = v;
     }
-    size = n;
+    m_size = n;
 }
 
 int Vector::size() const{
-    return size;
+    return m_size;
 }
 
 int Vector::capacity() const{
-    return capacity;
+    return m_capacity;
 }
 
-int* Vector::insert(int idx, int data, int n = 1){
-    if(size + n > capacity)
-        reserve(size + n);
+int* Vector::insert(int idx, int data, int n){
+    if(m_size + n > m_capacity)
+        reserve(m_size + n);
     for(int i = n - 1; i >= 0; i--)
     {
         vector[idx - 1 + n + i] = vector[idx - 1 + i];
@@ -157,12 +157,12 @@ int* Vector::insert(int idx, int data, int n = 1){
     {
         vector[idx - 1 + i] = data;
     }
-    size += n;
+    m_size += n;
 }
 
 void Vector::erase(int *iter){
     bool appear = false;
-    for(int i = 0; i < size; i++)
+    for(int i = 0; i < m_size; i++)
     {
         if(iter == &vector[i])
         {
@@ -174,12 +174,12 @@ void Vector::erase(int *iter){
             vector[i] = 0;
         }
     }
-    size--;
+    m_size--;
 }
 
 void Vector::erase(int *start, int *end){
     int startIdx = -1, endIdx = -1;
-    for(int i = 0; i < size; i++)
+    for(int i = 0; i < m_size; i++)
     {
         if(start == &vector[i])
             startIdx = i;
@@ -191,11 +191,11 @@ void Vector::erase(int *start, int *end){
             vector[i] = 0;
         }
     }
-    size -= endIdx - startIdx;
+    m_size -= endIdx - startIdx;
 }
 
 const bool Vector::empty() const{
-    if(size == 0)
+    if(m_size == 0)
         return true;
     return false;
 }
