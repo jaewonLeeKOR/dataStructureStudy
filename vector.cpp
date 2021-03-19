@@ -13,7 +13,7 @@ private:
     int capacity; //할당된 메모리 공간
     int *vector;
 public:
-    Vector(int l = 0, int v = 0):size( l - 1){
+    Vector(int l = 0, int v = 0):size(l){
         int *vector = new int[capacity];
         for(int i = 0; i < l; i++)
         {
@@ -42,6 +42,16 @@ public:
     void erase(int *iter);
     void erase(int *start, int *erase);
 };
+
+void assign(int n, int data){
+    if(size + n > capacity)
+        reserve(size+n); // size + n 이 capacity를 넘어가 index error 가 날 경우를 제거
+    for(int i = 0; i < n; i++)
+    {
+        vector[size+i] = data;
+    }
+    size += n;
+}
 
 void Vector::resize(int n, int v = 0)
 {
