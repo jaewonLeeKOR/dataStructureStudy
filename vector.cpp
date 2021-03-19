@@ -40,7 +40,7 @@ public:
     //v2.swap(v1);
     int* insert(int idx, int data, int n = 1);
     void erase(int *iter);
-    void erase(int *start, int *erase);
+    void erase(int *start, int *end);
     const bool empty() const;
 };
 
@@ -149,5 +149,21 @@ int* Vector::insert(int idx, int data, int n = 1){
         vector[idx - 1 + i] = data;
     }
     size += n;
+}
+
+void Vector::erase(int *iter){
+    bool appear = false;
+    for(int i = 0; i<size; i++)
+    {
+        if(iter == &vector[i])
+        {
+            appear = true;
+        }
+        else if(appear)
+        {
+            vector[i - 1] = vector[i];
+        }
+    }
+    size--;
 }
 
