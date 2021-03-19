@@ -43,7 +43,7 @@ public:
     void erase(int *start, int *erase);
 };
 
-void assign(int n, int data){
+void Vector::assign(int n, int data){
     if(size + n > capacity)
         reserve(size+n); // size + n 이 capacity를 넘어가 index error 가 날 경우를 제거
     for(int i = 0; i < n; i++)
@@ -53,25 +53,25 @@ void assign(int n, int data){
     size += n;
 }
 
-int at(int idx) const{
+int Vector::at(int idx) const{
     return vector[idx];
 }
 
-int front() const{
+int Vector::front() const{
     return vector[0];
 }
 
-int back() const{
+int Vector::back() const{
     return vector[size-1];
 }
 
-void clear(){
+void Vector::clear(){
     for(int i = size; i >= 0; i--)
         vector[i] = 0;
     size = 0;
 }
 
-void push_back(int data){
+void Vector::push_back(int data){
     if(size + 1 > capacity)
         reserve(size+1);
     vector[size] = data;
