@@ -13,9 +13,18 @@ private:
     int capacity; //할당된 메모리 공간
     int *vector;
 public:
-    Vector(int l = 0, int v = 0):size(l){
+    Vector(int n = 0, int v = 0):size(n){
+        int binary_number = 2;
+        while(true)
+        {
+            if(n / binary_number == 0)
+                break;
+            else
+                binary_number *= 2;
+        }
+        capacity = binary_number;   
         int *vector = new int[capacity];
-        for(int i = 0; i < l; i++)
+        for(int i = 0; i < n; i++)
         {
             vector[i] = v;
         }
