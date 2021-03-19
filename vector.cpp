@@ -129,10 +129,11 @@ void Vector::resize(int n, int v = 0)
     size = n;
 }
 
-int size() const{
+int Vector::size() const{
     return size;
 }
 
 int Vector::capacity() const{
     return capacity;
 }
+
