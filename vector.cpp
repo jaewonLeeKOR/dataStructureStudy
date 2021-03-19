@@ -158,6 +158,7 @@ int* Vector::insert(int idx, int data, int n){
         vector[idx - 1 + i] = data;
     }
     m_size += n;
+    return &vector[idx];
 }
 
 void Vector::erase(int *iter){
