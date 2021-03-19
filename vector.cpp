@@ -120,10 +120,11 @@ void Vector::reserve(int n){
 
 void Vector::resize(int n, int v = 0)
 {
+    reserve(n);
     int *tmp = new int[n];
     for(int i = 0; i < n; i++)
     {
         tmp[i] = v;
     }
-
+    size = n;
 }
