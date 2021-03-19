@@ -91,6 +91,24 @@ int* Vector::end() const{
     return &vector[size-1];
 }
 
+void Vector::reserve(int n){
+    int *tmp = new int[n];
+    for(int i = 0; i < n; i++)
+    {
+        if(i < size)
+        {
+            tmp[i] = vector[i];
+        }
+        else
+        {
+            tmp[i] = 0;
+        }
+    }
+    capacity = n;
+    vector = tmp;
+    free(tmp);
+}
+
 void Vector::resize(int n, int v = 0)
 {
     int *tmp = new int[n];
