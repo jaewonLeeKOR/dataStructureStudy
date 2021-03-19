@@ -128,3 +128,7 @@ void Vector::resize(int n, int v = 0)
     }
     size = n;
 }
+
+int size() const{
+    return size;
+}
