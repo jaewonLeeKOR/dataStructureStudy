@@ -61,6 +61,10 @@ int front() const{
     return vector[0];
 }
 
+int back() const{
+    return vector[size-1];
+}
+
 void Vector::resize(int n, int v = 0)
 {
     int *tmp = new int[n];
