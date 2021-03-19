@@ -184,3 +184,9 @@ void Vector::erase(int *start, int *end){
     }
     size -= endIdx - startIdx;
 }
+
+const bool Vector::empty() const{
+    if(size == 0)
+        return true;
+    return false;
+}
