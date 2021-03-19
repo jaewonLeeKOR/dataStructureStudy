@@ -87,6 +87,10 @@ int* Vector::begin() const{
     return &vector[0];
 }
 
+int* Vector::end() const{
+    return &vector[size-1];
+}
+
 void Vector::resize(int n, int v = 0)
 {
     int *tmp = new int[n];
