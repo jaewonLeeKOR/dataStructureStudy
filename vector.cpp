@@ -78,6 +78,11 @@ void Vector::push_back(int data){
     size++;
 }
 
+void Vector::pop_back(){
+    vector[size-1] = 0;
+    size--;
+}
+
 void Vector::resize(int n, int v = 0)
 {
     int *tmp = new int[n];
