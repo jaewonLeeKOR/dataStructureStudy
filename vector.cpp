@@ -71,6 +71,13 @@ void clear(){
     size = 0;
 }
 
+void push_back(int data){
+    if(size + 1 > capacity)
+        reserve(size+1);
+    vector[size] = data;
+    size++;
+}
+
 void Vector::resize(int n, int v = 0)
 {
     int *tmp = new int[n];
