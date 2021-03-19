@@ -153,7 +153,7 @@ int* Vector::insert(int idx, int data, int n = 1){
 
 void Vector::erase(int *iter){
     bool appear = false;
-    for(int i = 0; i<size; i++)
+    for(int i = 0; i < size; i++)
     {
         if(iter == &vector[i])
         {
@@ -162,8 +162,25 @@ void Vector::erase(int *iter){
         else if(appear)
         {
             vector[i - 1] = vector[i];
+            vector[i] = 0;
         }
     }
     size--;
 }
 
+void Vector::erase(int *start, int *end){
+    int startIdx = -1, endIdx = -1;
+    for(int i = 0; i < size; i++)
+    {
+        if(start == &vector[i])
+            startIdx = i;
+        if(end == &vector[i])
+            endIdx = i;
+        else if(startIdx != -1 && endIdx != -1)
+        {
+            vector[i - (endIdx - startIdx)] = vector[i];
+            vector[i] = 0;
+        }
+    }
+    size -= endIdx - startIdx;
+}
