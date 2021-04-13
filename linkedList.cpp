@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string>
 using namespace std;
 
 template<typename T>class LinkedList;
@@ -104,7 +105,7 @@ void LinkedList<T>::removeTail()
     }
     else
     {
-        Node<T> tmp = headNode;
+        Node<T> *tmp = headNode;
         while(tmp->next != tailNode)
             tmp = tmp->next;
         tailNode = tmp;
@@ -119,7 +120,7 @@ template<typename T>
 T LinkedList<T>::showHead() const
 {
     if(empty())
-        return NULL;
+        return (T)NULL;
     return headNode->memberElement;
 }
 
@@ -127,14 +128,14 @@ template<typename T>
 T LinkedList<T>::showTail() const
 {
     if(empty())
-        return NULL;
+        return (T)NULL;
     return tailNode->memberElement;
 }
 
 template<typename T>
 void LinkedList<T>::print() const
 {
-    Node<T> tmp = headNode;
+    Node<T> *tmp = headNode;
     while(tmp->next != nullptr)
     {
         cout << tmp->memberElement << " ";
@@ -143,4 +144,56 @@ void LinkedList<T>::print() const
     cout << "\n";
 }
 
-int main(){}
+int main(){
+    int textCase;
+    cin >> textCase;
+    string s;
+    LinkedList<int> list;
+    for(int i=0;i<textCase;i++)
+    {
+        cin >> s;
+        if(s=="size")
+        {
+            cout << "size : " << list.size() << "\n";
+        }
+        else if(s=="empty")
+        {
+            if(list.empty())
+                cout << "linkedList is empty\n";
+            else
+                cout << "linkedList is not empty\n";
+        }
+        else if(s=="insertHead")
+        {
+            int e;
+            cin >> e;
+            list.insertHead(e);
+        }
+        else if(s=="insertTail")
+        {
+            int e;
+            cin >> e;
+            list.insertTail(e);
+        }
+        else if(s=="removeHead")
+        {
+            list.removeHead();
+        }
+        else if(s=="removeTail")
+        {
+            list.removeTail();
+        }
+        else if(s=="showHead")
+        {
+            list.showHead();
+        }
+        else if(s=="showTail")
+        {
+            list.showTail();
+        }
+        else if(s=="print")
+        {
+            list.print();
+        }
+    }
+}
