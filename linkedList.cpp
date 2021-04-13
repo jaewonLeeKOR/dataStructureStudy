@@ -114,4 +114,12 @@ void LinkedList<T>::removeTail()
     listSize--;
 }
 
+template<typename T>
+T LinkedList<T>::showHead() const
+{
+    if(empty())
+        return NULL;
+    return headNode->memberElement;
+}
+
 int main(){}
