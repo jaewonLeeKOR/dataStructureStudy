@@ -135,8 +135,13 @@ T LinkedList<T>::showTail() const
 template<typename T>
 void LinkedList<T>::print() const
 {
+    if(empty())
+    {
+        cout << "list is empty.\n";
+        return;
+    }
     Node<T> *tmp = headNode;
-    while(tmp->next != nullptr)
+    while(tmp != nullptr)
     {
         cout << tmp->memberElement << " ";
         tmp = tmp->next;
@@ -185,15 +190,19 @@ int main(){
         }
         else if(s=="showHead")
         {
-            list.showHead();
+            cout << "Head : " << list.showHead() << "\n";
         }
         else if(s=="showTail")
         {
-            list.showTail();
+            cout << "Tail : " << list.showTail() << "\n";
         }
         else if(s=="print")
         {
             list.print();
+        }
+        else if(s=="q")
+        {
+            break;
         }
     }
 }
