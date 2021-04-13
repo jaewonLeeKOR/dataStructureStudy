@@ -26,6 +26,7 @@ public:
     void removeTail();
     T showHead() const;
     T showTail() const;
+    void print() const;
 };
 
 template<typename T>
@@ -104,7 +105,7 @@ void LinkedList<T>::removeTail()
     else
     {
         Node<T> tmp = headNode;
-        while(tmp->next == tailNode)
+        while(tmp->next != tailNode)
             tmp = tmp->next;
         tailNode = tmp;
         tmp = tmp->next;
@@ -128,6 +129,18 @@ T LinkedList<T>::showTail() const
     if(empty())
         return NULL;
     return tailNode->memberElement;
+}
+
+template<typename T>
+void LinkedList<T>::print() const
+{
+    Node<T> tmp = headNode;
+    while(tmp->next != nullptr)
+    {
+        cout << tmp->memberElement << " ";
+        tmp = tmp->next;
+    }
+    cout << "\n";
 }
 
 int main(){}
