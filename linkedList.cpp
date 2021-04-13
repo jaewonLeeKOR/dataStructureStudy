@@ -86,4 +86,32 @@ void LinkedList<T>::removeHead()
     listSize--;
 }
 
+template<typename T>
+void LinkedList<T>::removeTail()
+{
+    if(empty())
+    {
+        cout << "empty\n";
+        return;
+    }
+    else if(size() == 1)
+    {
+        Node<T> *tmp = tailNode;
+        delete tmp;
+        headNode = nullptr;
+        tailNode = nullptr;
+    }
+    else
+    {
+        Node<T> tmp = headNode;
+        while(tmp->next == tailNode)
+            tmp = tmp->next;
+        tailNode = tmp;
+        tmp = tmp->next;
+        tailNode->next = nullptr;
+        delete tmp;
+    }
+    listSize--;
+}
+
 int main(){}
