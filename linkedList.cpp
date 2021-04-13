@@ -122,4 +122,12 @@ T LinkedList<T>::showHead() const
     return headNode->memberElement;
 }
 
+template<typename T>
+T LinkedList<T>::showTail() const
+{
+    if(empty())
+        return NULL;
+    return tailNode->memberElement;
+}
+
 int main(){}
