@@ -31,7 +31,7 @@ public:
 template<typename T>
 void LinkedList<T>::insertHead(T element)
 {
-    Node<T> newNode = new Node<T>(element);
+    Node<T> *newNode = new Node<T>(element);
     if(empty())
     {
         headNode = newNode;
@@ -41,6 +41,23 @@ void LinkedList<T>::insertHead(T element)
     {
         newNode->next = headNode;
         headNode = newNode;
+    }
+    listSize++;
+}
+
+template<typename T>
+void LinkedList<T>::insertTail(T element)
+{
+    Node<T> *newNode = new Node<T>(element);
+    if(empty())
+    {
+        headNode = newNode;
+        tailNode = newNode;
+    }
+    else
+    {
+        tailNode->next = newNode;
+        tailNode = newNode;
     }
     listSize++;
 }
