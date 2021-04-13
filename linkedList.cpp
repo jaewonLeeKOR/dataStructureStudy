@@ -62,4 +62,28 @@ void LinkedList<T>::insertTail(T element)
     listSize++;
 }
 
+template<typename T>
+void LinkedList<T>::removeHead()
+{
+    if(empty())
+    {
+        cout << "empty\n";
+        return;
+    }
+    else if(size() == 1)
+    {
+        Node<T> *tmp = headNode;
+        delete tmp;
+        headNode = nullptr;
+        tailNode = nullptr;
+    }
+    else
+    {
+        Node<T> *tmp = headNode;
+        headNode = tmp->next;
+        delete tmp;
+    }
+    listSize--;
+}
+
 int main(){}
