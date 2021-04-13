@@ -18,14 +18,31 @@ class LinkedList{
     Node<T> *tailNode;
 public:
     LinkedList():headNode(nullptr),tailNode(nullptr),listSize(0) {}
-    const int size() const;
-    const bool empty() const;
-    void inserthead(T element);
+    inline const int size() const {return listSize;}
+    inline const bool empty() const {return listSize==0;}
+    void insertHead(T element);
     void insertTail(T element);
     void removeHead();
     void removeTail();
     T showHead() const;
     T showTail() const;
 };
+
+template<typename T>
+void LinkedList<T>::insertHead(T element)
+{
+    Node<T> newNode = new Node<T>(element);
+    if(empty())
+    {
+        headNode = newNode;
+        tailNode = newNode;
+    }
+    else
+    {
+        newNode->next = headNode;
+        headNode = newNode;
+    }
+    listSize++;
+}
 
 int main(){}
