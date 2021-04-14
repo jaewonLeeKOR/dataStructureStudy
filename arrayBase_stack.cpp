@@ -101,6 +101,13 @@ int main()
             else
                 cout << stack.pop() << "\n";
         }
+        else if(s=="top")
+        {
+            if(stack.top()==(int)NULL)
+                cout << "Stack is empty.\n";
+            else
+                cout << stack.top() << "\n";
+        }
         else if(s=="print")
         {
             stack.print();
