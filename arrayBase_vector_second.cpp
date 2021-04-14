@@ -28,6 +28,7 @@ public:
     void erase(int b, int e=(T)NULL);
     void reserve(int n);
     void resize(int n, int elem=(T)NULL);
+    void print() const;
 };
 
 template<typename T>
@@ -92,6 +93,16 @@ void Vector<T>::resize(int n, int elem)
     for(int i=vectorSize;i<n;i++)
         vector[i] = elem;
     vectorSize = n;
+}
+
+template<typename T>
+void Vector<T>::print() const
+{
+    for(int i=0;i<vectorSize;i++)
+    {
+        cout << vector[i] << " ";
+    }
+    cout << "\n";
 }
 
 int main()
