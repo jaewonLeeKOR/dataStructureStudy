@@ -40,6 +40,11 @@ void Queue<T>::push(T e)
 template<typename T>
 T Queue<T>::pop()
 {
+    if(empty())
+    {
+        cout << "Queue is empty!";
+        return (T)NULL;
+    }
     Node<T> *tmp = frontNode;
     while(tmp->next != rearNode)
         tmp=tmp->next;
