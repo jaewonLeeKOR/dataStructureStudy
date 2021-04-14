@@ -71,8 +71,17 @@ void Vector<T>::erase(int beginIdx, int endIdx)
         vector[i] = (T)NULL;
 }
 
-// template<typename T>
-// void Vector<T>::reserve(int n);
+template<typename T>
+void Vector<T>::reserve(int n)
+{
+    T *newVector = new T[n];
+    for(int i=0;i<vectorSize;i++)
+        newVector[i] = vector[i];
+    T *tmp = vector;
+    vector = newVector;
+    delete vector;
+    vectorCapacity = n;
+}
 
 // template<typename T>
 // void Vector<T>::resize(int n, int elem=(T)NULL);
