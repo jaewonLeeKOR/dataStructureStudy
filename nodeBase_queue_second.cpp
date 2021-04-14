@@ -42,8 +42,18 @@ T Queue<T>::pop()
 {
     if(empty())
     {
-        cout << "Queue is empty!";
+        cout << "Queue is empty!\n";
         return (T)NULL;
+    }
+    if(size() == 1)
+    {
+        Node<T> *tmp = frontNode;
+        T answer = tmp->memberElement;
+        delete tmp;
+        frontNode = nullptr;
+        rearNode = nullptr;
+        queueSize--;
+        return answer;
     }
     Node<T> *tmp = frontNode;
     while(tmp->next != rearNode)
@@ -74,4 +84,50 @@ void Queue<T>::print()
     cout << "\n";
 }
 
-int main() {}
+int main() 
+{
+    int testCase;
+    cin >> testCase;
+    string s;
+    Queue<int> queue;
+    for(int i=0;i<testCase;i++)
+    {
+        cin >> s;
+        if(s=="size")
+        {
+            cout << "Size : " << queue.size() << "\n";
+        }
+        else if(s=="empty")
+        {
+            if(queue.empty())
+                cout << "Queue is empty!\n";
+            else
+                cout << "Queue is not empty\n";
+        }
+        else if(s=="front")
+        {
+            cout << queue.front() <<"\n";
+        }
+        else if(s=="push")
+        {
+            int e;
+            cin >> e;
+            queue.push(e);
+        }
+        else if(s=="pop")
+        {
+            if(queue.empty())
+                queue.pop();
+            else
+                cout << queue.pop() << "\n";
+        }
+        else if(s=="print")
+        {
+            queue.print();
+        }
+        else if(s=="q")
+        {
+            break;
+        }
+    }
+}
