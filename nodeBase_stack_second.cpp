@@ -1,4 +1,6 @@
+//update template availability
 #include<iostream>
+#include<string>
 using namespace std;
 
 template<typename T>class Stack;
@@ -28,8 +30,8 @@ public:
 template<typename T>
 void Stack<T>::push(T element)
 {
-    Node<T> newNode = new Node<T>(element);
-    newNode.next = topNode;
+    Node<T> *newNode = new Node<T>(element);
+    newNode->next = topNode;
     topNode = newNode;
     stackSize++;
 }
@@ -42,10 +44,12 @@ T Stack<T>::pop()
         cout << "Stack is empty!\n";
         return (T)NULL;
     }
-    Node<T> tmp = topNode;
+    Node<T> *tmp = topNode;
     topNode = tmp->next;
-    delete topNode;
+    T answer = tmp->memberElement;
+    delete tmp;
     stackSize--;
+    return answer;
 }
 
 template<typename T>
@@ -65,4 +69,45 @@ void Stack<T>::print() const
     cout << "\n";
 }
 
-int main(){}
+int main(){
+    int testCase;
+    cin >> testCase;
+    string s;
+    Stack<int> stack;
+    for(int i=0;i<testCase;i++)
+    {
+        cin >> s;
+        if(s=="size")
+        {
+            cout << "Size : " << stack.size() << "\n";
+        }
+        else if(s=="empty")
+        {
+            if(stack.empty())
+                cout << "Stack is empty!\n";
+            else
+                cout << "Stack is not empty\n";
+        }
+        else if(s=="push")
+        {
+            int e;
+            cin >> e;
+            stack.push(e);
+        }
+        else if(s=="pop")
+        {
+            if(stack.empty())
+                stack.pop();
+            else
+                cout << stack.pop() << "\n";
+        }
+        else if(s=="print")
+        {
+            stack.print();
+        }
+        else if(s=="q")
+        {
+            break;
+        }
+    }
+}
