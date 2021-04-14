@@ -1,4 +1,5 @@
 #include<iostream>
+using namespace std;
 
 template<typename T>class Stack;
 
@@ -31,6 +32,20 @@ void Stack<T>::push(T element)
     newNode.next = topNode;
     topNode = newNode;
     stackSize++;
+}
+
+template<typename T>
+T Stack<T>::pop()
+{
+    if(empty())
+    {
+        cout << "Stack is empty!\n";
+        return (T)NULL;
+    }
+    Node<T> tmp = topNode;
+    topNode = tmp->next;
+    delete topNode;
+    stackSize--;
 }
 
 int main(){}
