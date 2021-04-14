@@ -37,8 +37,18 @@ void Vector<T>::clear()
     vectorSize = 0;
 }
 
-// template<typename T>
-// void Vector<T>::insert(int idx, int elem);
+template<typename T>
+void Vector<T>::insert(int idx, int elem)
+{
+    if(vectorCapacity<=vectorSize+1)
+        reserve(vectorCapacity);
+    for(int i=vectorSize-1;i>=idx;i--)
+    {
+        vector[i+1] = vector[i];
+    }
+    vector[idx] = elem;
+    vectorSize++;
+}
 
 // template<typename T>
 // void Vector<T>::insert(int idx, int num, int elem);
