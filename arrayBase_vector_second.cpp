@@ -29,4 +29,28 @@ public:
     void resize(int n, int elem=(T)NULL);
 };
 
+template<typename T>
+void Vector<T>::clear()
+{
+    for(int i=0;i<vectorSize;i++)
+        vector[i] = (T)NULL;
+    vectorSize = 0;
+}
+
+// template<typename T>
+// void Vector<T>::insert(int idx, int elem);
+
+// template<typename T>
+// void Vector<T>::insert(int idx, int num, int elem);
+
+// template<typename T>
+// void Vector<T>::erase(int idx, int num=(T)NULL);
+
+// template<typename T>
+// void Vector<T>::reserve(int n);
+
+// template<typename T>
+// void Vector<T>::resize(int n, int elem=(T)NULL);
+
+
 int main() {}
