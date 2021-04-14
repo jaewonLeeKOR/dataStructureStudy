@@ -43,7 +43,9 @@ T Stack<T>::pop()
         cout << "Stack is Empty.\n";
         return (T)NULL;
     }
-    return stack[--stackSize] = (T)NULL;
+    T tmp = stack[--stackSize];
+    stack[stackSize] = (T)NULL;
+    return tmp;
 }
 
 template<typename T>
