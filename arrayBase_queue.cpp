@@ -19,7 +19,7 @@ public:
     inline const int capacity() const {return queueCapacity;}
     inline const int size() const {return (rearIndex - frontIndex + queueCapacity) % queueCapacity;}
     inline const bool empty() const {return size()==0;}
-    inline const bool full() const {return size()==capacity();}
+    inline const bool full() const {return size()==capacity()-1;}
     void enqueue(T);
     T dequeue();
     void print() const;
@@ -49,6 +49,23 @@ T Queue<T>::dequeue()
     queue[frontIndex] = (T)NULL;
     ++frontIndex %= queueCapacity;
     return tmp;
+}
+
+template<typename T>
+void Queue<T>::print() const
+{
+    if(empty())
+    {
+        cout << "Queue is Empty.\n";
+        return (T)NULL;
+    }
+    int tmp = frontIndex;
+    while(tmp!=rearIndex)
+    {
+        cout << queue[tmp] << " ";
+        ++tmp %= queueCapacity;
+    }
+    cout << "\n";
 }
 
 int main() {}
