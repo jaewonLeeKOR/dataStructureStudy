@@ -215,5 +215,9 @@ int main()
                 vec.resize(n,e);
             }
         }
+        else if("print")
+        {
+            vec.print();
+        }
     }
 }
