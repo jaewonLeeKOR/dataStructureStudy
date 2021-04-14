@@ -29,7 +29,7 @@ public:
 template<typename T>
 void Queue<T>::push(T e)
 {
-    Node<T> newNode = new Node<T>(e);
+    Node<T> *newNode = new Node<T>(e);
     if(empty())
         rearNode = newNode;
     newNode->next = frontNode;
@@ -40,7 +40,7 @@ void Queue<T>::push(T e)
 template<typename T>
 T Queue<T>::pop()
 {
-    Node<T> tmp = frontNode;
+    Node<T> *tmp = frontNode;
     while(tmp->next != rearNode)
         tmp=tmp->next;
     rearNode = tmp;
@@ -50,6 +50,23 @@ T Queue<T>::pop()
     delete tmp;
     queueSize--;
     return answer;
+}
+
+template<typename T>
+void Queue<T>::print()
+{
+    if(empty())
+    {
+        cout << "Queue is empty!\n";
+        return;
+    }
+    Node<T> *tmp = frontNode;
+    while(tmp!=nullptr)
+    {
+        cout << tmp->memberElement << " ";
+        tmp = tmp->next;
+    }
+    cout << "\n";
 }
 
 int main() {}
