@@ -25,4 +25,15 @@ public:
     void print() const;
 };
 
+template<typename T>
+void Queue<T>::enqueue(T e)
+{
+    if(full())
+    {
+        cout << "Queue is Full.\n";
+        return ;
+    }
+    queue[rearIndex++] = e;
+}
+
 int main() {}
