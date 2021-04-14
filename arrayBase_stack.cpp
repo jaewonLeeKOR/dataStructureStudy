@@ -20,7 +20,7 @@ public:
     inline const T top() const {return empty()?(T)NULL:stack[stackSize-1];}
     void push(T);
     T pop();
-    void print();
+    void print() const;
 };
 
 template<typename T>
@@ -43,6 +43,19 @@ T Stack<T>::pop()
         return;
     }
     stack[--stackSize] = (T)NULL;
+}
+
+template<typename T>
+void Stack<T>::print() const
+{
+    if(empty())
+    {
+        cout << "Stack is Empty.\n";
+        return;
+    }
+    for(int i=stackSize-1;i>=0;i--)
+        cout << stack[i] << " ";
+    cout << "\n";
 }
 
 int main() {}
