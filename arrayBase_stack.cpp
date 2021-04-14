@@ -23,4 +23,15 @@ public:
     void print();
 };
 
+template<typename T>
+void Stack<T>::push(T e)
+{
+    if(full())
+    {
+        cout << "Stack is Full.\n";
+        return;
+    }
+    stack[stackSize++] = e;
+}
+
 int main() {}
