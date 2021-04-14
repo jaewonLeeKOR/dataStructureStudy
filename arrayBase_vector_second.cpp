@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string>
 using namespace std;
 
 template<typename T>
@@ -93,5 +94,115 @@ void Vector<T>::resize(int n, int elem)
     vectorSize = n;
 }
 
-
-int main() {}
+int main()
+{
+    int testCase, size;
+    cin >> testCase;
+    cout << "Input vector Size : ";
+    cin >> size;
+    Vector<int> vec(size);
+    string s;
+    for(int j=0;j<testCase;j++)
+    {
+        cin >> s;
+        if(s=="[]")
+        {
+            int i;
+            cin >> i;
+            cout << "Vector[i] : " << vec[i] << "\n";
+        }
+        else if(s=="size")
+        {
+            cout << "Size : " << vec.size() << "\n";
+        }
+        else if(s=="capacity")
+        {
+            cout << "Capacity : " << vec.capacity() << "\n";
+        }
+        else if(s=="empty")
+        {
+            if(vec.empty())
+                cout << "Vector is empty,\n";
+            else
+                cout << "Vector is not empty.\n";
+        }
+        else if(s=="at")
+        {
+            int i;
+            cin >> i;
+            cout << vec.at(i) << "\n";
+        }
+        else if(s=="front")
+        {
+            cout << vec.front() << "\n";
+        }
+        else if(s=="back")
+        {
+            cout << vec.back() << "\n";
+        }
+        else if(s=="clear")
+        {
+            vec.clear();
+        }
+        else if(s=="insert")
+        {
+            int num;
+            cout << "1.insert(idx, elem) 2.insert(idx, num, elem)\n";
+            cin >> num;
+            if(num==1)
+            {
+                int i,e;
+                cin >> i >> e;
+                vec.insert(i,e);
+            }
+            else
+            {
+                int i,n,e;
+                cin >> i >> n >> e;
+                vec.insert(i,n,e);
+            }
+        }
+        else if(s=="erase")
+        {
+            int num;
+            cout << "1.erase(idx) 2.erase(beginIdx, endIdx)\n";
+            cin >> num;
+            if(num==1)
+            {
+                int i;
+                cin >> i;
+                vec.erase(i);
+            }
+            else
+            {
+                int b,e;
+                cin >> b >> e;
+                vec.erase(b,e);
+            }
+        }
+        else if(s=="reserve")
+        {
+            int n;
+            cin >> n;
+            vec.reserve(n);
+        }
+        else if(s=="resize")
+        {
+            int num;
+            cout << "1.resize(n) 2.resize(n,e)\n";
+            cin >> num;
+            if(num==1)
+            {
+                int n;
+                cin >> n;
+                vec.resize(n);
+            }
+            else
+            {
+                int n, e;
+                cin >> n >> e;
+                vec.resize(n,e);
+            }
+        }
+    }
+}
