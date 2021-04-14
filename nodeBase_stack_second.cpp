@@ -24,4 +24,13 @@ public:
     void print() const;
 };
 
+template<typename T>
+void Stack<T>::push(T element)
+{
+    Node<T> newNode = new Node<T>(element);
+    newNode.next = topNode;
+    topNode = newNode;
+    stackSize++;
+}
+
 int main(){}
