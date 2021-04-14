@@ -7,17 +7,18 @@ class Stack
 {
     int stackSize;
     T *stack;
-    int capacity;
+    int stackCapacity;
 public:
-    Stack(int n):stackSize(0),capacity(n)
+    Stack(int n):stackSize(0),stackCapacity(n)
     {
-        stack = new T[capacity];
-        for(int i=0;i<capacity;i++)
+        stack = new T[stackCapacity];
+        for(int i=0;i<stackCapacity;i++)
             stack[i] = (T)NULL;
     }
+    inline const int capacity() const {return stackCapacity;}
     inline const int size() const {return stackSize;}
     inline const bool empty() const {return stackSize==0;}
-    inline const bool full() const {return stackSize==capacity;}
+    inline const bool full() const {return stackSize==stackCapacity;}
     inline const T top() const {return empty()?(T)NULL:stack[stackSize-1];}
     void push(T);
     T pop();
@@ -75,6 +76,10 @@ int main()
         if(s=="size")
         {
             cout << "Size : " << stack.size() << "\n";
+        }
+        else if(s=="capacity")
+        {
+            cout << "Capacity : " << stack.capacity() << "\n";
         }
         else if(s=="empty")
         {
