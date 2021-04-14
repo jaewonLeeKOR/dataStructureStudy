@@ -34,4 +34,15 @@ void Stack<T>::push(T e)
     stack[stackSize++] = e;
 }
 
+template<typename T>
+T Stack<T>::pop()
+{
+    if(empty())
+    {
+        cout << "Stack is Empty.\n";
+        return;
+    }
+    stack[--stackSize] = (T)NULL;
+}
+
 int main() {}
