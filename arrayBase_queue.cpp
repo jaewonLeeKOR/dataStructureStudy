@@ -36,4 +36,17 @@ void Queue<T>::enqueue(T e)
     queue[rearIndex++] = e;
 }
 
+template<typename T>
+T Queue<T>::dequeue()
+{
+    if(empty())
+    {
+        cout << "Queue is Empty.\n";
+        return (T)NULL;
+    }
+    T tmp = queue[frontIndex];
+    queue[frontIndex++] = (T)NULL;
+    return tmp;
+}
+
 int main() {}
