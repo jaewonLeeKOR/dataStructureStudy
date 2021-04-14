@@ -26,4 +26,15 @@ public:
     void print();
 };
 
+template<typename T>
+void Queue<T>::push(T e)
+{
+    Node<T> newNode = new Node<T>(e);
+    if(empty())
+        rearNode = newNode;
+    newNode->next = frontNode;
+    frontNode = newNode;
+    queueSize++;
+}
+
 int main() {}
