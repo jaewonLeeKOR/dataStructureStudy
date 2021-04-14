@@ -16,6 +16,7 @@ public:
     }
     inline const int size() const {return stackSize;}
     inline const bool empty() const {return stackSize==0;}
+    inline const bool full() const {return stackSize==capacity;}
     inline const T top() const {return empty()?(T)NULL:stack[stackSize-1];}
     void push(T);
     T pop();
