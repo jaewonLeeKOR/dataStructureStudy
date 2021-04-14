@@ -24,7 +24,7 @@ public:
     void clear();
     void insert(int idx, int elem);
     void insert(int idx, int num, int elem);
-    void erase(int idx, int num=(T)NULL);
+    void erase(int b, int e=(T)NULL);
     void reserve(int n);
     void resize(int n, int elem=(T)NULL);
 };
@@ -62,8 +62,14 @@ void Vector<T>::insert(int idx, int num, int elem)
     vectorSize += num;
 }
 
-// template<typename T>
-// void Vector<T>::erase(int idx, int num=(T)NULL);
+template<typename T>
+void Vector<T>::erase(int beginIdx, int endIdx)
+{
+    if(endIdx==(T)NULL)
+        endIdx = beginIdx+1;
+    for(int i=beginIdx;i<endIdx;i++)
+        vector[i] = (T)NULL;
+}
 
 // template<typename T>
 // void Vector<T>::reserve(int n);
