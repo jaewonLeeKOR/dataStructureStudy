@@ -18,7 +18,7 @@ public:
     Stack():stackSize(0),topNode(nullptr) {}
     inline const int size() const {return stackSize;}
     inline const bool empty() const {return stackSize==0;}
-    T top() const;
+    T top() const {return topNode->memberElement;}
     void push(T);
     T pop();
     void print() const;
