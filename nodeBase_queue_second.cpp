@@ -37,4 +37,19 @@ void Queue<T>::push(T e)
     queueSize++;
 }
 
+template<typename T>
+T Queue<T>::pop()
+{
+    Node<T> tmp = frontNode;
+    while(tmp->next != rearNode)
+        tmp=tmp->next;
+    rearNode = tmp;
+    tmp = tmp->next;
+    rearNode->next = nullptr;
+    T answer = tmp->memberElement;
+    delete tmp;
+    queueSize--;
+    return answer;
+}
+
 int main() {}
