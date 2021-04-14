@@ -83,8 +83,15 @@ void Vector<T>::reserve(int n)
     vectorCapacity = n;
 }
 
-// template<typename T>
-// void Vector<T>::resize(int n, int elem=(T)NULL);
+template<typename T>
+void Vector<T>::resize(int n, int elem)
+{
+    if(vectorCapacity<=n)
+        reserve(n);
+    for(int i=vectorSize;i<n;i++)
+        vector[i] = elem;
+    vectorSize = n;
+}
 
 
 int main() {}
