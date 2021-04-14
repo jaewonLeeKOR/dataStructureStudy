@@ -48,4 +48,21 @@ T Stack<T>::pop()
     stackSize--;
 }
 
+template<typename T>
+void Stack<T>::print() const
+{
+    if(empty())
+    {
+        cout << "Stack is empty!\n";
+        return;
+    }
+    Node<T> *tmp = topNode;
+    while(tmp != nullptr)
+    {
+        cout << tmp->memberElement << " ";
+        tmp = tmp->next;
+    }
+    cout << "\n";
+}
+
 int main(){}
