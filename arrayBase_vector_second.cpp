@@ -41,7 +41,7 @@ template<typename T>
 void Vector<T>::insert(int idx, int elem)
 {
     if(vectorCapacity<=vectorSize+1)
-        reserve(vectorCapacity);
+        reserve(vectorSize+1);
     for(int i=vectorSize-1;i>=idx;i--)
     {
         vector[i+1] = vector[i];
@@ -50,8 +50,17 @@ void Vector<T>::insert(int idx, int elem)
     vectorSize++;
 }
 
-// template<typename T>
-// void Vector<T>::insert(int idx, int num, int elem);
+template<typename T>
+void Vector<T>::insert(int idx, int num, int elem)
+{
+    if(vectorCapacity<=vectorSize+num)
+        reserve(vectorSize+num);
+    for(int i=vectorSize-1;i>=idx;i--)
+        vector[i+num] = vector[i];
+    for(int i=idx;i<idx+num;i++)
+        vector[i] = elem;
+    vectorSize += num;
+}
 
 // template<typename T>
 // void Vector<T>::erase(int idx, int num=(T)NULL);
