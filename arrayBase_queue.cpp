@@ -33,7 +33,8 @@ void Queue<T>::enqueue(T e)
         cout << "Queue is Full.\n";
         return ;
     }
-    queue[rearIndex++] = e;
+    queue[rearIndex] = e;
+    ++rearIndex %= queueCapacity;
 }
 
 template<typename T>
@@ -45,7 +46,8 @@ T Queue<T>::dequeue()
         return (T)NULL;
     }
     T tmp = queue[frontIndex];
-    queue[frontIndex++] = (T)NULL;
+    queue[frontIndex] = (T)NULL;
+    ++frontIndex %= queueCapacity;
     return tmp;
 }
 
