@@ -77,7 +77,7 @@ Iterator<T>& List<T>::begin()
 template<typename T>
 Iterator<T>& List<T>::end()
 {
-    Iterator<T> *tmp(trailerNode->next);
+    Iterator<T> *tmp(trailerNode->prev);
     return tmp;
 }
 
