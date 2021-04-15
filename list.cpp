@@ -98,14 +98,14 @@ void List<T>::insertEnd(T e)
 template<typename T>
 void List<T>::eraseFront()
 {
-    Iterator<T> tmp(headerNode->next);
+    Iterator<T> tmp(begin());
     erase(tmp);
 }
 
 template<typename T>
 void List<T>::eraseEnd()
 {
-    Iterator<T> tmp(trailerNode->prev);
+    Iterator<T> tmp(end());
     erase(tmp);
 }
 
@@ -133,7 +133,15 @@ void List<T>::erase(Iterator<T> iter)
     delete eraseNode;
     listSize--;
 }
-// template<typename T>
-// void List<T>::print() const;
+
+template<typename T>
+void List<T>::print() const
+{
+    for(Iterator<T> iter = new Iterator<T>(begin());iter.pointNode!=trailerNode;iter++)
+    {
+        cout << iter.pointNode->memberElement << " ";
+    }
+    cout << "\n";
+}
 
 int main() {}
