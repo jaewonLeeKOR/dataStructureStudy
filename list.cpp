@@ -81,4 +81,41 @@ Iterator<T>& List<T>::end()
     return tmp;
 }
 
+template<typename T>
+void List<T>::insertFront(T e)
+{
+    Iterator<T> tmp(headerNode->next);
+    insert(tmp,e);
+}
+
+template<typename T>
+void List<T>::insertEnd(T e)
+{
+    Iterator<T> tmp(trailerNode);
+    insert(tmp, e);
+}
+
+// template<typename T>
+// void List<T>::eraseFront();
+// template<typename T>
+// void List<T>::eraseEnd();
+
+template<typename T>
+void List<T>::insert(Iterator<T> iter, T e)
+{
+    Node<T> newNode = new Node<T>(e);
+    Node<T> *currentNode = *iter;
+    Node<T> *preNode = currentNode->prev;
+    newNode->next = currentNode;
+    newNode->prev = preNode;
+    preNode->next = newNode;
+    currentNode->prev = newNode;
+    listSize++;
+}
+
+// template<typename T>
+// void List<T>::erase(Iterator<T>, T);
+// template<typename T>
+// void List<T>::print() const;
+
 int main() {}
