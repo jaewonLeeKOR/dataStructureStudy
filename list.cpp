@@ -74,4 +74,11 @@ Iterator<T>& List<T>::begin()
     return tmp;
 }
 
+template<typename T>
+Iterator<T>& List<T>::end()
+{
+    Iterator<T> *tmp(trailerNode->next);
+    return tmp;
+}
+
 int main() {}
