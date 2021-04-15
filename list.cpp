@@ -51,4 +51,20 @@ public:
     void print() const;
 };
 
+template<typename T>
+Iterator<T>& Iterator<T>::operator+=(int plus)
+{
+    for(int i=0;i<plus;i++)
+        this++;
+    return *this;
+}
+
+template<typename T>
+Iterator<T>& Iterator<T>::operator-=(int minus)
+{
+    for(int i=0;i<minus;i++)
+        this--;
+    return *this;
+}
+
 int main() {}
