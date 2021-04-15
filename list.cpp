@@ -67,4 +67,11 @@ Iterator<T>& Iterator<T>::operator-=(int minus)
     return *this;
 }
 
+template<typename T>
+Iterator<T>& List<T>::begin()
+{
+    Iterator<T> *tmp(headerNode->next);
+    return tmp;
+}
+
 int main() {}
