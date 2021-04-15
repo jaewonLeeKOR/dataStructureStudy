@@ -47,7 +47,7 @@ public:
     void eraseFront();
     void eraseEnd();
     void insert(Iterator<T>, T);
-    void erase(Iterator<T>, T);
+    void erase(Iterator<T>);
     void print() const;
 };
 
@@ -95,10 +95,19 @@ void List<T>::insertEnd(T e)
     insert(tmp, e);
 }
 
-// template<typename T>
-// void List<T>::eraseFront();
-// template<typename T>
-// void List<T>::eraseEnd();
+template<typename T>
+void List<T>::eraseFront()
+{
+    Iterator<T> tmp(headerNode->next);
+    erase(tmp);
+}
+
+template<typename T>
+void List<T>::eraseEnd()
+{
+    Iterator<T> tmp(trailerNode->prev);
+    erase(tmp);
+}
 
 template<typename T>
 void List<T>::insert(Iterator<T> iter, T e)
@@ -113,8 +122,17 @@ void List<T>::insert(Iterator<T> iter, T e)
     listSize++;
 }
 
-// template<typename T>
-// void List<T>::erase(Iterator<T>, T);
+template<typename T>
+void List<T>::erase(Iterator<T> iter)
+{
+    Node<T> *eraseNode = iter.pointNode;
+    Node<T> *prevNode = eraseNode->prev;
+    Node<T> *nextNode = eraseNode->next;
+    prevNode->next = nextNode;
+    nextNode->prev = prevNode;
+    delete eraseNode;
+    listSize--;
+}
 // template<typename T>
 // void List<T>::print() const;
 
