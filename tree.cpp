@@ -204,11 +204,12 @@ template<typename T>
 void Tree<T>::erase(T targetElement)
 {
     Node<T> *targetNode = nullptr;
-    for(Node<T> *node:treeNodes)
+    for(int i=0; i<treeNodes.size();i++)
     {
-        if(targetElement == node->element)
+        if(targetElement == treeNodes[i]->element)
         {
-            targetNode = node;
+            targetNode = treeNodes[i];
+            treeNodes.erase(treeNodes.begin()+i);
             break;
         }
     }
