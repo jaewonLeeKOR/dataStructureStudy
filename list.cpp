@@ -21,13 +21,13 @@ class Iterator{
 public:
     Iterator(Node<T> *n=nullptr):pointNode(n) {}
     //B Node<T>& operator*() {return pointNode;};
-    bool operator==(const Iterator& b) const {return pointNode->memberElement==b->memberElement? true:false;}
-    Iterator& operator++() {pointNode=pointNode->next;return *this;}
+    bool operator==(const Iterator &b) const {return pointNode->memberElement==b->memberElement? true:false;}
+    Iterator &operator++() {pointNode=pointNode->next;return *this;}
     Iterator operator++(int) {Iterator<T> *iter(pointNode); iter->pointNode=iter->pointNode->next;return iter;}
-    Iterator& operator+=(int);
-    Iterator& operator--() {pointNode=pointNode->prev;return *this;}
+    Iterator &operator+=(int);
+    Iterator &operator--() {pointNode=pointNode->prev;return *this;}
     Iterator operator--(int) {Iterator<T> *iter(pointNode); iter->pointNode=iter->pointNode->next;return iter;}
-    Iterator& operator-=(int);
+    Iterator &operator-=(int);
     friend class List<T>;
 };
 
@@ -53,7 +53,7 @@ public:
 };
 
 template<typename T>
-Iterator<T>& Iterator<T>::operator+=(int plus)
+Iterator<T> &Iterator<T>::operator+=(int plus)
 {
     for(int i=0;i<plus;i++)
         this;
@@ -61,7 +61,7 @@ Iterator<T>& Iterator<T>::operator+=(int plus)
 }
 
 template<typename T>
-Iterator<T>& Iterator<T>::operator-=(int minus)
+Iterator<T> &Iterator<T>::operator-=(int minus)
 {
     for(int i=0;i<minus;i++)
         this--;
