@@ -353,13 +353,13 @@ int main()
             int t;
             cin >> t;
             if(t==1)
-                tree.height();
+                cout << tree.height() << "\n";
             else
             {
                 cout << "Input SubTree's RootElement : ";
                 int e;
                 cin >> e;
-                tree.height(e);
+                cout << tree.height(e) << "\n";
             }
         }
         else if(s=="isExternal")
