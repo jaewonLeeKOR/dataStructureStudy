@@ -17,10 +17,10 @@ public:
     Tree(T rootElement=1):size(0)
     {
         Node *newNode = new Node(rootElement);
-        treeNode.push_back(newNode);
+        treeNodes.push_back(newNode);
         size++;
     }
-    const int size() const;
+    const int size() const {return size;};
     const bool empty() const;
     const int depth() const;
     const int height() const;
