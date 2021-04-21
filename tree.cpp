@@ -29,7 +29,7 @@ public:
     bool isExternal(T targetElement) const;
     bool isInternal(T targetElement) const;
     void insert(T parentElement, T childElement);
-    void preOrderScan(T targetElement);
+    void preOrderScan(int amount); //input amount of data and scan with element, depth data
     void postOrderScan(T targetElement);
     void preOrderPrint(T targetElement) const;
     void postOrderPrint(T targetElement) const;
@@ -242,4 +242,36 @@ void Tree<T>::eraseAll()
 {
     for(Node<T> *node : treeNodes[0]->children)
         erase(node->element);
+}
+template<typename T>
+void Tree<T>::preOrderScan(int amount)
+{
+    vector<T> v_element;
+    vector<int> v_depth;
+    for(int i=0;i<amount;i++)
+    {
+        T dt;
+        cin >> dt;
+        v_element.push_back(dt);
+    }
+    for(int i=0;i<amount;i++)
+    {
+        int dt;
+        cin >> dt;
+        v_depth.push_back(dt);
+    }
+    for(int i=amount-2;i>=0; i--)
+    {
+        T element = v_element[i], parentElement;
+        int depth = v_depth[i];
+        for(int j=i; j<amount; j++)
+        {
+            if(v_depth[j]==depth-1)
+            {
+                parentElement = v_element[j];
+                break;
+            }
+        }
+        insert(parentElement, element);
+    }
 }
