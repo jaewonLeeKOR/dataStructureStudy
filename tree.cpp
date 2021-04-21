@@ -31,7 +31,7 @@ public:
     void insert(T parentElement, T childElement);
     void preOrderScan(T targetElement);
     void postOrderScan(T targetElement);
-    void preOrederPrint(T targetElement) const;
+    void preOrderPrint(T targetElement) const;
     void postOrderPrint(T targetElement) const;
     void erase(T targetElement);
     void eraseAll();
@@ -152,5 +152,29 @@ void Tree<T>::insert(T parentElement, T childElement)
     parentNode->children.push_back(newNode);
     treeNodes.push_back(newNode);
     treeSize++;
+    return;
+}
+template<typename T>
+void Tree<T>::preOrderPrint(T targetElement) const
+{
+    Node<T> *targetNode = nullptr;
+    for(Node<T> *node : treeNodes)
+    {
+        if(targetElement == node->element)
+        {
+            targetNode = node;
+            break;
+        }
+    }
+    if(targetNode == nullptr)
+    {
+        cout << "Element Not Found.\n";
+        return ;
+    }
+    cout << targetNode->element << " ";
+    for(Node<T> node:targetNode->children)
+        preOrderPrint(node->element);
+    if(targetNode->element == treeNodes[0]->element)
+        cout << "\n";
     return;
 }
