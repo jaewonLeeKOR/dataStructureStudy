@@ -27,7 +27,7 @@ public:
     const int height(T targetElement=-1) const;
     bool isRoot(T targetElement) const {return targetElement==treeNodes[0]->element;};
     bool isExternal(T targetElement) const;
-    bool isInternal();
+    bool isInternal(T targetElement) const;
     void insert(T parentElement, T childElement);
     void preOrderScan(T targetElement);
     void postOrderScan(T targetElement);
@@ -104,6 +104,28 @@ bool Tree<T>::isExternal(T targetElement) const
         return false;
     }
     if(targetNode->children.size() == 0)
+        return true;
+    else
+        return false;
+}
+template<typename T>
+bool Tree<T>::isInternal(T targetElement) const
+{
+    Node<T> *targetNode = nullptr;
+    for(Node<T> *node : treeNodes)
+    {
+        if(targetElement==node->element)
+        {
+            targetNode = node;
+            break;
+        }
+    }
+    if(targetNode == nullptr)
+    {
+        cout << "Element Not Found.\n";
+        return false;
+    }
+    if(targetNode->children.size()!=0)
         return true;
     else
         return false;
