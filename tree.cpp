@@ -25,7 +25,7 @@ public:
     const bool empty() const {return treeSize==0;};
     const int depth(T targetElement) const;
     const int height(T targetElement=-1) const;
-    bool isRoot();
+    bool isRoot(T targetElement) {return targetElement==treeNodes[0]->element;};
     bool isExternal();
     bool isInternal();
     void insert(T parentElement, T childElement);
