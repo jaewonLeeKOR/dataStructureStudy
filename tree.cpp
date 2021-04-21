@@ -23,26 +23,26 @@ public:
     }
     const int size() const {return treeSize;};
     const bool empty() const {return treeSize==0;};
-    const int depth(T target) const;
-    const int height() const;
+    const int depth(T targetElement) const;
+    const int height(T targetElement=-1) const;
     bool isRoot();
     bool isExternal();
     bool isInternal();
     void insert(T parentElement, T childElement);
-    void preOrderScan(T target);
-    void postOrderScan(T target);
-    void preOrederPrint(T target) const;
-    void postOrderPrint(T target) const;
-    void erase(T target);
+    void preOrderScan(T targetElement);
+    void postOrderScan(T targetElement);
+    void preOrederPrint(T targetElement) const;
+    void postOrderPrint(T targetElement) const;
+    void erase(T targetElement);
     void eraseAll();
 };
 template<typename T>
-const int Tree<T>::depth(T target) const
+const int Tree<T>::depth(T targetElement) const
 {
     Node<T> *targetNode = nullptr;
     for(Node<T> *node:treeNodes)
     {
-        if(target == node->element)
+        if(targetElement == node->element)
         {
             targetNode = node;
             break;
@@ -57,4 +57,32 @@ const int Tree<T>::depth(T target) const
     if(targetNode->parent != nullptr)
         h+=depth(targetNode->parent->element)+1;
     return h;
+}
+template<typename T>
+const int Tree<T>::height(T targetElement) const
+{
+    if(targetElement==-1)
+        targetElement = (treeNodes[0]->element);
+    Node<T> *targetNode = nullptr;
+    for(Node<T> *node: treeNodes)
+    {
+        if(targetElement == node->element)
+        {
+            targetNode = node;
+            break;
+        }
+    }
+    if(targetNode==nullptr)
+    {
+        cout << "Element Not Found.\n";
+        return -1;
+    }
+    int d=0;
+    for(Node<T> *node:targetNode->children)
+    {
+        int h=height(node->element)+1;
+        if(d<h)
+            d = h;
+    }
+    return d;
 }
