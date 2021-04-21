@@ -11,17 +11,17 @@ class Tree{
         vector<Node*> children;
         Node(T e):m_elem(e),parent(nullptr) {}
     };
-    int size;
+    int treeSize;
     vector<Node*> treeNodes;
 public:
-    Tree(T rootElement=1):size(0)
+    Tree(T rootElement=1):treeSize(0)
     {
         Node *newNode = new Node(rootElement);
         treeNodes.push_back(newNode);
-        size++;
+        treeSize++;
     }
-    const int size() const {return size;};
-    const bool empty() const;
+    const int size() const {return treeSize;};
+    const bool empty() const {return treeSize==0;};
     const int depth() const;
     const int height() const;
     bool isRoot();
