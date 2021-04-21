@@ -237,3 +237,9 @@ void Tree<T>::erase(T targetElement)
     treeSize--;
     return;
 }
+template<typename T>
+void Tree<T>::eraseAll()
+{
+    for(Node<T> *node : treeNodes[0]->children)
+        erase(node->element);
+}
