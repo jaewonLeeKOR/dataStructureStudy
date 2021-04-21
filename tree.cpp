@@ -178,3 +178,25 @@ void Tree<T>::preOrderPrint(T targetElement) const
         cout << "\n";
     return;
 }
+template<typename T>
+void Tree<T>::postOrderPrint(T targetElement) const
+{
+    Node<T> *targetNode = nullptr;
+    for(Node<T> *node:treeNodes)
+    {
+        if(targetElement == node->element)
+        {
+            targetNode = node;
+        }
+    }
+    if(targetNode == nullptr)
+    {
+        cout << "Element Not Found.\n";
+        return ;
+    }
+    for(Node<T> *node:targetNode->children)
+        postOrderPrint(node->element);
+    cout << targetNode->element << " ";
+    if(targetNode == treeNodes[0])
+        cout << "\n";
+}
