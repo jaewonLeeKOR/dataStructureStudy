@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<string>
 using namespace std;
 
 template<typename T>
@@ -305,5 +306,111 @@ void Tree<T>::postOrderScan(int amount)
             }
         }
         insert(parentElement, element);
+    }
+}
+int main()
+{
+    int testCase;
+    string s;
+    cin >> testCase;
+    Tree<int> tree;
+    for(int i=0;i<testCase; i++)
+    {
+        cin >> s;
+        if(s=="size")
+            cout << tree.size() << "\n";
+        else if(s=="empty")
+        {
+            if(tree.empty())
+                cout << "Tree is empty.\n";
+            else
+                cout << "Tree is not empty.\n";
+        }
+        else if(s=="isRoot")
+        {
+            int e;
+            cin >> e;
+            if(tree.isRoot(e))
+                cout << e << " is Root Element.\n";
+            else
+                cout << e << " is not Root Element.\n";
+        }
+        else if(s=="depth")
+        {
+            int e;
+            cin >> e;
+            e = tree.depth(e);
+            if(e != -1)
+                cout << e << "\n";
+        }
+        else if(s=="height")
+        {
+            cout << "1.Tree's height 2.SubTree's height\n";
+            int t;
+            cin >> t;
+            if(t==1)
+                tree.height();
+            else
+            {
+                cout << "Input SubTree's RootElement : ";
+                int e;
+                cin >> e;
+                tree.height(e);
+            }
+        }
+        else if(s=="isExternal")
+        {
+            int e;
+            cin >> e;
+            if(tree.isExternal(e))
+                cout << e << " is external element.\n";
+            else
+            {
+                cout << e << " is not external element.\n";
+            }
+        }
+        else if(s=="isInternal")
+        {
+            int e;
+            cin >> e;
+            if(tree.isInternal(e))
+                cout << e << " is internal element.\n";
+            else
+            {
+                cout << e << " is not internal element.\n";
+            }
+        }
+        else if(s=="insert")
+        {
+            int parent, child;
+            cin >> parent >> child;
+            tree.insert(parent, child);
+        }
+        else if(s=="preOrderScan")
+        {
+            int amount;
+            cin >> amount;
+            tree.preOrderScan(amount);
+        }
+        else if(s=="postOrderScan")
+        {
+            int amount;
+            cin >> amount;
+            tree.postOrderScan(amount);
+        }
+        else if(s=="preOrderPrint")
+            tree.preOrderPrint();
+        else if(s=="postOrderPrint")
+            tree.postPrderPrint();
+        else if(s=="erase")
+        {
+            int e;
+            cin >> e;
+            tree.erase(e);
+        }
+        else if(s=="eraseAll")
+            tree.eraseAll();
+        else if(s=="q")
+            break;
     }
 }
