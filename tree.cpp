@@ -1,33 +1,37 @@
 #include<iostream>
-#include<queue>
+#include<vector>
 using namespace std;
 
+template<typename T>
 class Tree{
     class Node{
     public:
-        int m_elem;
+        T m_elem;
         Node *parent;
-        queue<Node*> children;
-        Node(int e):m_elem(e) {}
-    }
-    int height;
+        vector<Node*> children;
+        Node(T e):m_elem(e),parent(nullptr) {}
+    };
     int size;
-    Node *root;
+    vector<Node*> treeNodes;
 public:
-    class Iterator{
-    public:
-        Node *node;
-        Iterator(Node *n = nullptr):node(n) {}
+    Tree(T rootElement=1):size(0)
+    {
+        Node *newNode = new Node(rootElement);
+        treeNode.push_back(newNode);
+        size++;
     }
-    Tree():height(0),size(0),root(nullptr) {}
-    int size();
-    bool empty();
-    Iteraotr& root();
-    bool isRoot(Iterator iter);
-    bool isExternal(Iterator iter);
-    bool isInternal(Iterator iter);
-    int depth(Iterator iter);
-    int height();
-    Iterator& parent(Iterator iter);
-    Tree& descendant(Iterator iter);
-}
+    const int size() const;
+    const bool empty() const;
+    const int depth() const;
+    const int height() const;
+    bool isRoot();
+    bool isExternal();
+    bool isInternal();
+    void insert(T parentElement, T childElement);
+    void preOrderScan(T target);
+    void postOrderScan(T target);
+    void preOrederPrint(T target) const;
+    void postOrderPrint(T target) const;
+    void erase(T target);
+    void eraseAll();
+};
