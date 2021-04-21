@@ -50,7 +50,7 @@ const int Tree<T>::depth(T targetElement) const
     }
     if(targetNode == nullptr)
     {
-        cout << "Element Not Found.\n";
+        cout << "Error : Element Not Found.\n";
         return -1;
     }
     int h=0;
@@ -74,7 +74,7 @@ const int Tree<T>::height(T targetElement) const
     }
     if(targetNode==nullptr)
     {
-        cout << "Element Not Found.\n";
+        cout << "Error : Element Not Found.\n";
         return -1;
     }
     int d=0;
@@ -100,7 +100,7 @@ bool Tree<T>::isExternal(T targetElement) const
     }
     if(targetNode == nullptr)
     {
-        cout << "Element Not Found.\n";
+        cout << "Error : Element Not Found.\n";
         return false;
     }
     if(targetNode->children.size() == 0)
@@ -122,7 +122,7 @@ bool Tree<T>::isInternal(T targetElement) const
     }
     if(targetNode == nullptr)
     {
-        cout << "Element Not Found.\n";
+        cout << "Error : Element Not Found.\n";
         return false;
     }
     if(targetNode->children.size()!=0)
@@ -144,7 +144,7 @@ void Tree<T>::insert(T parentElement, T childElement)
     }
     if(parentNode == nullptr)
     {
-        cout << "Element Not Found.\n";
+        cout << "Error : Element Not Found.\n";
         return ;
     }
     Node<T> *newNode = new Node<T>(childElement);
@@ -168,7 +168,7 @@ void Tree<T>::preOrderPrint(T targetElement) const
     }
     if(targetNode == nullptr)
     {
-        cout << "Element Not Found.\n";
+        cout << "Error : Element Not Found.\n";
         return ;
     }
     cout << targetNode->element << " ";
@@ -191,7 +191,7 @@ void Tree<T>::postOrderPrint(T targetElement) const
     }
     if(targetNode == nullptr)
     {
-        cout << "Element Not Found.\n";
+        cout << "Error : Element Not Found.\n";
         return ;
     }
     for(Node<T> *node:targetNode->children)
@@ -199,4 +199,40 @@ void Tree<T>::postOrderPrint(T targetElement) const
     cout << targetNode->element << " ";
     if(targetNode == treeNodes[0])
         cout << "\n";
+}
+template<typename T>
+void Tree<T>::erase(T targetElement)
+{
+    Node<T> *targetNode = nullptr;
+    for(Node<T> *node:treeNodes)
+    {
+        if(targetElement == node->element)
+        {
+            targetNode = node;
+            break;
+        }
+    }
+    if(targetNode == nullptr)
+    {
+        cout << "Error : Element Not Found.\n";
+        return ;
+    }
+    if(targetNode == treeNodes[0])
+    {
+        cout << "Error : Root Node Selected.\n";
+        return ;
+    }
+    for(int i=0;i<targetNode->parent->children.size();i++)
+    {
+        if(targetNode->element == targetNode->parent->children[i])
+        {
+            targetNode->parent->children.erase(targetNode->parent->children.begin() + i);
+            break;
+        }
+    }
+    for(Node<T> *node : targetNode->children)
+        targetNode->parent->children.push_back(node);
+    delete targetNode;
+    treeSize--;
+    return;
 }
