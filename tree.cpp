@@ -32,8 +32,8 @@ public:
     void insert(T parentElement, T childElement);
     void preOrderScan(int amount); //input amount of data and scan with element, depth data
     void postOrderScan(int amount); //input amount of data and scan with element, depth data
-    void preOrderPrint(T targetElement) const;
-    void postOrderPrint(T targetElement) const;
+    void preOrderPrint(T targetElement = -1) const;
+    void postOrderPrint(T targetElement = -1) const;
     void erase(T targetElement);
     void eraseAll();
 };
@@ -158,6 +158,8 @@ void Tree<T>::insert(T parentElement, T childElement)
 template<typename T>
 void Tree<T>::preOrderPrint(T targetElement) const
 {
+    if(targetElement == -1)
+        targetElement = treeNodes[0]->element;
     Node<T> *targetNode = nullptr;
     for(Node<T> *node : treeNodes)
     {
@@ -173,7 +175,7 @@ void Tree<T>::preOrderPrint(T targetElement) const
         return ;
     }
     cout << targetNode->element << " ";
-    for(Node<T> node:targetNode->children)
+    for(Node<T> *node:targetNode->children)
         preOrderPrint(node->element);
     if(targetNode->element == treeNodes[0]->element)
         cout << "\n";
@@ -182,6 +184,8 @@ void Tree<T>::preOrderPrint(T targetElement) const
 template<typename T>
 void Tree<T>::postOrderPrint(T targetElement) const
 {
+    if(targetElement == -1)
+        targetElement = treeNodes[0]->element;
     Node<T> *targetNode = nullptr;
     for(Node<T> *node:treeNodes)
     {
@@ -226,7 +230,7 @@ void Tree<T>::erase(T targetElement)
     }
     for(int i=0;i<targetNode->parent->children.size();i++)
     {
-        if(targetNode->element == targetNode->parent->children[i])
+        if(targetNode->element == targetNode->parent->children[i]->element)
         {
             targetNode->parent->children.erase(targetNode->parent->children.begin() + i);
             break;
@@ -399,9 +403,35 @@ int main()
             tree.postOrderScan(amount);
         }
         else if(s=="preOrderPrint")
-            tree.preOrderPrint();
+        {
+            cout << "1.Print All Tree 2.Print SubTree : ";
+            int t;
+            cin >> t;
+            if(t==1)
+                tree.preOrderPrint();
+            else
+            {
+                cout << "Input SubTree's rootElement : ";
+                int k;
+                cin >> k;
+                tree.preOrderPrint(k);
+            }
+        }
         else if(s=="postOrderPrint")
-            tree.postPrderPrint();
+        {
+            cout << "1.Print All Tree 2.Print SubTree : ";
+            int t;
+            cin >> t;
+            if(t==1)
+                tree.postOrderPrint();
+            else
+            {
+                cout << "Input SubTree's rootElement : ";
+                int k;
+                cin >> k;
+                tree.postOrderPrint(k);
+            }
+        }
         else if(s=="erase")
         {
             int e;
