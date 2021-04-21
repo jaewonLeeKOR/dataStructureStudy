@@ -130,3 +130,27 @@ bool Tree<T>::isInternal(T targetElement) const
     else
         return false;
 }
+template<typename T>
+void Tree<T>::insert(T parentElement, T childElement)
+{
+    Node<T> *parentNode = nullptr;
+    for(Node<T> *node : treeNodes)
+    {
+        if(node->element == parentElement)
+        {
+            parentNode = node;
+            break;
+        }
+    }
+    if(parentNode == nullptr)
+    {
+        cout << "Element Not Found.\n";
+        return ;
+    }
+    Node<T> *newNode = new Node<T>(childElement);
+    newNode->parent = parentNode;
+    parentNode->children.push_back(newNode);
+    treeNodes.push_back(newNode);
+    treeSize++;
+    return;
+}
