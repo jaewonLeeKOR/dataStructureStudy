@@ -30,7 +30,7 @@ public:
     bool isInternal(T targetElement) const;
     void insert(T parentElement, T childElement);
     void preOrderScan(int amount); //input amount of data and scan with element, depth data
-    void postOrderScan(T targetElement);
+    void postOrderScan(int amount); //input amount of data and scan with element, depth data
     void preOrderPrint(T targetElement) const;
     void postOrderPrint(T targetElement) const;
     void erase(T targetElement);
@@ -267,6 +267,38 @@ void Tree<T>::preOrderScan(int amount)
         for(int j=i; j<amount; j++)
         {
             if(v_depth[j]==depth-1)
+            {
+                parentElement = v_element[j];
+                break;
+            }
+        }
+        insert(parentElement, element);
+    }
+}
+template<typename T>
+void Tree<T>::postOrderScan(int amount)
+{
+    vector<T> v_element;
+    vector<int> v_depth;
+    for(int i=0;i<amount;i++)
+    {
+        T data;
+        cin >> data;
+        v_element.push_back(data);
+    }
+    for(int i=0;i<amount;i++)
+    {
+        int data;
+        cin >> data;
+        v_depth.push_back(data);
+    }
+    for(int i=1;i<amount;i++)
+    {
+        T element = v_element[i], parentElement;
+        int depth = v_depth[i];
+        for(int j=i;j>=0;j--)
+        {
+            if(v_depth[j] == depth-1)
             {
                 parentElement = v_element[j];
                 break;
