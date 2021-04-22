@@ -36,7 +36,7 @@ public:
         Node<N> &operator*() const;
     };
     const int size() const {return sequenceSize;}
-    const bool empty() const;
+    const bool empty() const {return sequenceSize==0;}
     const bool full() const;
     Iterator<T> &front();
     Iterator<T> &rear();
