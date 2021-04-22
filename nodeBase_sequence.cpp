@@ -40,15 +40,27 @@ public:
     Iterator<T> &front() {return Iterator<T>(header->next);}
     Iterator<T> &rear() {return Iterator<T>(trailer);}
     void insert(Iterator<T> iter, T value);
-    void insertFront(T value);
-    void insertRear(T value);
+    void insertFront(T value) {insert(front(), value);}
+    void insertRear(T value) {insert(rear(), value);}
     T erase(Iterator<T> iter);
     T eraseFront();
     T eraseRear();
     void clear();
     T at(int index) const;
     T operator[](int index) const;
-    int noewIndex(Iterator<T> iter) const;
+    int nowIndex(Iterator<T> iter) const;
     void print() const;
     void printReverse() const;
 };
+template<typename T>
+void Sequence<T>::insert(Iterator<T> iter, T value)
+{
+    Node<T> *currentNode = iter->node;
+    Node<T> *prevNode = currentNode->prev;
+    Node<T> *newNode = new Node<T>(value);
+    currentNode->prev = newNode;
+    prevNode->next = newNode;
+    newNode->next = currentNode;
+    newNode->prev = prevNode;
+    sequenceSize++;
+}
