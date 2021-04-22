@@ -21,8 +21,7 @@ public:
         header = new Node<T>((T)NULL);
         trailer = new Node<T>((T)NULL);
         header->next = trailer;
-        trailer->next = header;
-        sequenceSize++;
+        trailer->prev = header;
     }
     template<typename N>
     class Iterator
@@ -81,7 +80,7 @@ T Sequence<T>::erase(Iterator<T> iter)
 template<typename T>
 void Sequence<T>::clear()
 {
-    while(empty())
+    while(!empty())
         erase(front());
 }
 template<typename T>
@@ -104,7 +103,7 @@ template<typename T>
 int Sequence<T>::nowIndex(Iterator<T> iter)
 {
     int count = 0;
-    for(Iterator<T> i=front(); i!=iter; ++iter)
+    for(Iterator<T> i=front(); i!=iter; ++i)
         count++;
     return count;
 }
