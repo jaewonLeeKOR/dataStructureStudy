@@ -124,3 +124,34 @@ bool BinaryTree<T>::isInternal(T targetElement) const
     }
     return targetNode->leftChild != nullptr || targetNode->rightChild != nullptr;
 }
+template<typename T>
+void BinaryTree<T>::insert(T parentElement, T childElement)
+{
+    Node<T> *parentNode = nullptr;
+    for(int i=0; i<treeNode.size(); i++)
+    {
+        if(parentElement == treeNode[i]->element)
+        {
+            parentNode = treeNode[i];
+            break;
+        }
+    }
+    if(parentNode == nullptr)
+    {
+        cout << "Error : Element Not Found.\n";
+        return;
+    }
+    Node<T> *childNode = new Node<T>(childElement);
+    if(parentNode->leftChild == nullptr)
+        parentNode->leftChild = childNode;
+    else if(parentNode->rightChild == nullptr)
+        parentNode->rightChild = childNode;
+    else if(parentNode->leftChild != nullptr && parentNode->rightChild != nullptr)
+    {
+        cout << "Error : Child Node is Full.\n";
+        return ;
+    }
+    childNode->parent = parentNode;
+    treeSize++;
+    return ;
+}
