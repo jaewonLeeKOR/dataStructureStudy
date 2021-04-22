@@ -13,16 +13,16 @@ class BinaryTree
         Node<N> *rightChild;
         Node(N e):element(e),parent(nullptr),leftChild(nullptr),rightChild(nullptr) {}
     };
-    int reeSize;
+    int treeSize;
     vector<Node<T>*> treeNodes;
 public:
-    BinaryTree(T rootElement):reeSize(0)
+    BinaryTree(T rootElement):treeSize(0)
     {
         Node<T> *newNode = new Node<T>(rootElement);
         treeNodes.push_back(newNode);
-        reeSize++;
+        treeSize++;
     }
-    const int size() const;
+    const int size() const {return treeSize;}
     const bool empty() const;
     const int depth() const;
     const int height() const;
