@@ -16,7 +16,7 @@ class Sequence
             sequence[i] = (T)NULL;
         }
     }
-    const int size() const;
+    const int size() const {return (rearIndex - frontIndex + sequenceSize)%sequenceSize;}
     const bool empty() const;
     const T front() const;
     const T rear() const;
