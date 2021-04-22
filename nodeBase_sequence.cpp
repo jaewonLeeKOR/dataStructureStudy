@@ -99,3 +99,11 @@ T Sequence<T>::operator[](int index) const
         ++iter;
     return iter->node->element;
 }
+template<typename T>
+int Sequence<T>::nowIndex(Iterator<T> iter) const
+{
+    int count = 0;
+    for(Iterator<T> *i=front(); i!=iter; ++iter)
+        count++;
+    return count;
+}
