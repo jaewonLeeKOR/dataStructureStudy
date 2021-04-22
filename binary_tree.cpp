@@ -56,12 +56,9 @@ const int BinaryTree<T>::depth(T targetElement) const
         cout << "Error : Element NOt Found.\n";
         return -1;
     }
-    int d = 0, left = 0, right = 0;
-    if(targetNode->leftChild != nullptr)
-        left = depth(targetNode->leftChild->element) + 1;
-    if(targetNode->rightChild != nullptr)
-        right = depth(targetNode->rightChild->element) + 1;
-    d = left > right ? left : right;
+    int d = 0;
+    if(targetNode->parent != nullptr)
+        d = depth(targetNode->parent->element) + 1;
     return d;
 }
 template<typename T>
