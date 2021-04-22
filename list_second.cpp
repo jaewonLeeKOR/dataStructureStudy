@@ -42,8 +42,8 @@ public:
     void insertFront(T value) {insert(begin(), value);}
     void insertEnd(T value) {insert(end(), value);}
     T erase(const Iterator<T>& iter);
-    T eraseFront();
-    T eraseEnd();
+    T eraseFront() {erase(begin());}
+    T eraseEnd() {erase(trailer->prev);}
     void print() const;
     void printReverse() const;
 };
@@ -59,4 +59,16 @@ void List<T>::insert(const Iterator<T>& iter, T value)
     newNode->prev = prevNode;
     listSize++;
     return;
+}
+template<typename T>
+T List<T>::erase(const Iterator<T>& iter)
+{
+    Node<T> *tmp = iter.node;
+    Node<T> *nextNode = tmp->next;
+    Node<T> *prevNode = tmp->prev;
+    T res = tmp->element;
+    prevNode->next = nextNode;
+    nextNode->prev = prevNode;
+    delete tmp;
+    return res;
 }
