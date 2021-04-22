@@ -149,6 +149,11 @@ void BinaryTree<T>::insert(T parentElement, T childElement, int reverse)
             parentNode->leftChild = childNode;
         else if(parentNode->rightChild == nullptr)
             parentNode->rightChild = childNode;
+        else if(parentNode->leftChild != nullptr && parentNode->rightChild != nullptr)
+        {
+            cout << "Error : Child Node is Full.\n";
+            return ;
+        }
     }
     else if(reverse == -1)
     {
@@ -156,12 +161,13 @@ void BinaryTree<T>::insert(T parentElement, T childElement, int reverse)
             parentNode->rightChild = childNode;
         else if(parentNode->leftChild == nullptr)
             parentNode->leftChild = childNode;
+        else if(parentNode->leftChild != nullptr && parentNode->rightChild != nullptr)
+        {
+            cout << "Error : Child Node is Full.\n";
+            return ;
+        }
     }
-    if(parentNode->leftChild != nullptr && parentNode->rightChild != nullptr)
-    {
-        cout << "Error : Child Node is Full.\n";
-        return ;
-    }
+    treeNode.push_back(childNode);
     childNode->parent = parentNode;
     treeSize++;
     return ;
@@ -208,9 +214,9 @@ void BinaryTree<T>::postOrderPrint(T targetElement)
         return ;
     }
     if(targetNode->leftChild != nullptr)
-        preOrderPrint(targetNode->leftChild->element);
+        postOrderPrint(targetNode->leftChild->element);
     if(targetNode->rightChild != nullptr)
-        preOrderPrint(targetNode->rightChild->element);
+        postOrderPrint(targetNode->rightChild->element);
     cout << targetNode->element << " ";
     return ;
 }
@@ -262,7 +268,7 @@ void BinaryTree<T>::eraseAll()
     for(int i=treeNode.size()-1; i>0; i--)
     {
         Node<T> *tmp = treeNode[i];
-        tmp->parentNode = nullptr;
+        tmp->parent = nullptr;
         tmp->rightChild = nullptr;
         tmp->leftChild = nullptr;
         delete tmp;
@@ -357,14 +363,31 @@ void BinaryTree<T>::inOrderScan(int amount)
     for(int i=0; i<maxDepth; i++)
     {
         vector<int> index;
-        for(int j=0;j<amount;j++)
+        for(int j=0;j<amount;j++) // 해당 높이 인덱스 구하기
         {
             if(v_depth[j] == i)
                 index.push_back(j);
         }
-        for(int j=0; j<index.size(); j++)
+        for(int j=0; j<index.size(); j++) // 해당 높이 인덱스 순회
         {
-            for(int k=index[j]; k>=0; k--)
+            int leftMax=-1, rightMax=amount;
+            for(int k=index[j]; k>=0; k--) // 왼쪽 상한값 구하기
+            {
+                if(v_depth[k] == i-1)
+                {
+                    leftMax = k;
+                    break;
+                }
+            }
+            for(int k=index[j]; k<amount; k++) // 오른쪽 상한값 구하기
+            {
+                if(v_depth[k] == i-1)
+                {
+                    rightMax = k;
+                    break;
+                }
+            }
+            for(int k=index[j]; k>leftMax; k--) // 왼쪽 자식 구하기
             {
                 if(v_depth[k] == i+1)
                 {
@@ -372,7 +395,7 @@ void BinaryTree<T>::inOrderScan(int amount)
                     break;
                 }
             }
-            for(int k=index[j]; k<amount; k++)
+            for(int k=index[j]; k<rightMax; k++) // 오른쪽 자식 구하기
             {
                 if(v_depth[k] == i+1)
                 {
@@ -416,19 +439,19 @@ int main()
         {
             int e;
             cin >> e;
-            b.isRoot(e);
+            cout << b.isRoot(e) << "\n";
         }
         else if(s=="isExternal")
         {
             int e;
             cin >> e;
-            b.isExternal(e);
+            cout << b.isExternal(e) << "\n";
         }
         else if(s=="isInternal")
         {
             int e;
             cin >> e;
-            b.isInternal(e);
+            cout << b.isInternal(e) << "\n";
         }
         else if(s=="insert")
         {
@@ -459,18 +482,25 @@ int main()
             int e;
             cin >> e;
             b.preOrderPrint(e);
+            cout << "\n";
         }
         else if(s=="postOrderPrint")
         {
             int e;
             cin >> e;
             b.postOrderPrint(e);
+            cout << "\n";
         }
         else if(s=="inOrderPrint")
         {
             int e;
             cin >> e;
             b.inOrderPrint(e);
+            cout << "\n";
+        }
+        else if(s=="eraseAll")
+        {
+            b.eraseAll();
         }
         else if(s=="q")
             break;
