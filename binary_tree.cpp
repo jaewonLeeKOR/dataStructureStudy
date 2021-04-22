@@ -23,7 +23,7 @@ public:
         treeSize++;
     }
     const int size() const {return treeSize;}
-    const bool empty() const;
+    const bool empty() const {return treeSize == 0;}
     const int depth() const;
     const int height() const;
     bool isRoot() const;
