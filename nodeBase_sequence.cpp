@@ -77,3 +77,9 @@ T Sequence<T>::erase(Iterator<T> iter)
     sequenceSize--;
     return res;
 }
+template<typename T>
+void Sequence<T>::clear()
+{
+    while(empty())
+        erase(front());
+}
