@@ -65,3 +65,10 @@ T Sequence<T>::erase(int targetIndex)
     }
     rearIndex = (rearIndex-1 + sequenceSize) % sequenceSize;
 }
+template<typename T>
+void Sequence<T>::clear()
+{
+    for(int i=frontIndex;i<rearIndex;i++)
+        sequence[i] = (T)NULL;
+    rearIndex = frontIndex;
+}
