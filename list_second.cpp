@@ -36,15 +36,15 @@ public:
     };
     int size() const {return listSize;}
     bool empty() const {return listSize == 0;}
-    Iterator<T> &begin() {return Iterator<T>(header->next);}
-    Iterator<T> &end() {return Iterator<T>(trailer);}
+    Iterator<T> begin() {return Iterator<T>(header->next);}
+    Iterator<T> end() {return Iterator<T>(trailer);}
     void insert(const Iterator<T>& iter, T value);
     void insertFront(T value) {insert(begin(), value);}
     void insertEnd(T value) {insert(end(), value);}
     T erase(const Iterator<T>& iter);
-    T eraseFront() {erase(begin());}
-    T eraseEnd() {erase(trailer->prev);}
-    void print() const;
+    T eraseFront() {return erase(begin());}
+    T eraseEnd() {return erase(trailer->prev);}
+    void print();
     void printReverse() const;
 };
 template<typename T>
@@ -73,7 +73,7 @@ T List<T>::erase(const Iterator<T>& iter)
     return res;
 }
 template<typename T>
-void List<T>::print() const
+void List<T>::print()
 {
     for(Iterator<T> iter = begin(); iter != end(); ++iter)
         cout << iter.node->element << " ";
@@ -85,4 +85,99 @@ void List<T>::printReverse() const
     for(Iterator<T> iter = end(); iter != begin(); --iter)
         cout << iter.node->prev->element << " ";
     cout << "\n";
+}
+int main()
+{
+    int testCase;
+    string s;
+    cin >> testCase;
+    List<int> l;
+    List<int>::Iterator<int> iter = l.begin();
+    for(int i=0;i<testCase;i++)
+    {
+        cin >> s;
+        if(s=="++")
+        {
+            ++iter;
+        }
+        else if(s=="--")
+        {
+            --iter;
+        }
+        else if(s=="empty")
+        {
+            if(l.empty())
+                cout << "List is empty.\n";
+            else
+                cout << "List is not empty.\n";
+        }
+        else if(s=="size")
+        {
+            cout << "size : " << l.size() << "\n";
+        }
+        else if(s=="end")
+        {
+            iter = l.end();
+        }
+        else if(s=="begin")
+        {
+            iter = l.begin();
+        }
+        else if(s=="insert")
+        {
+            int n,e;
+            cout << "1.insertFront 2.insertEnd 3.insert(iter)\n";
+            cin >> n;
+            cout << "input element.\n";
+            cin >> e;
+            switch (n)
+            {
+                case 1:
+                    l.insertFront(e);
+                    break;
+                case 2:
+                    l.insertEnd(e);
+                    break;
+                case 3:
+                    l.insert(iter,e);
+                    break;
+                default:
+                    cout << "select in 1,2,3.\n";
+                    break;
+            }
+        }
+        else if(s=="erase")
+        {
+            if(l.empty())
+                cout << "List is empty,\n";
+            else
+            {
+                int n;
+                cout << "1.eraseFront 2.eraseEnd 3.erase(iter)\n";
+                cin >> n;
+                switch (n)
+                {
+                case 1:
+                    l.eraseFront();
+                    break;
+                case 2:
+                    l.eraseEnd();
+                    break;
+                case 3:
+                    l.erase(iter);
+                    break;
+                default:
+                    cout << "select in 1,2,3.\n";
+                    break;
+                }
+            }
+        }
+        else if(s=="print")
+        {
+            if(l.empty())
+                cout << "List is empty.\n";
+            else
+                l.print();
+        }
+    }
 }
