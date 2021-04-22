@@ -36,7 +36,7 @@ public:
     void preOrderPrint(T targetElement);
     void postOrderPrint(T targetElement);
     void inOrderPrint(T targetElement);
-    void erase(T targetElement);
+    // void erase(T targetElement);
     void eraseAll();
 };
 template<typename T>
@@ -202,4 +202,60 @@ void BinaryTree<T>::postOrderPrint(T targetElement)
         preOrderPrint(targetNode->rightChild->element);
     cout << targetNode->element << " ";
     return ;
+}
+template<typename T>
+void BinaryTree<T>::inOrderPrint(T targetElement)
+{
+    Node<T> *targetNode = nullptr;
+    for(int i=0;i<treeNode.size();i++)
+    {
+        if(targetElement == treeNode[i]->element)
+        {
+            targetNode = treeNode[i];
+            break;
+        }
+    }
+    if(targetNode == nullptr)
+    {
+        cout << "Error : Element Not Found.\n";
+        return ;
+    }
+    if(targetNode->leftChild != nullptr)
+        inOrderPrint(targetNode->leftChild->element);
+    cout << targetNode->element << " ";
+    if(targetNode->rightChild != nullptr)
+        inOrderPrint(targetNode->rightChild->element);
+    return ;
+}
+// template<typename T>
+// void BinaryTree<T>::erase(T targetElement)
+// {
+//     Node<T> *targetNode = nullptr;
+//     for(int i=0; i<treeNode.size(); i++)
+//     {
+//         if(targetElement == treeNode[i]->element)
+//         {
+//             targetNode = treeNode[i];
+//             break;
+//         }
+//     }
+//     if(targetNode == nullptr)
+//     {
+//         cout << "Error : Element Not Found.\n";
+//         return ;
+//     }
+// }
+template<typename T>
+void BinaryTree<T>::eraseAll()
+{
+    for(int i=treeNode.size()-1; i>0; i--)
+    {
+        Node<T> *tmp = treeNode[i];
+        tmp->parentNode = nullptr;
+        tmp->rightChild = nullptr;
+        tmp->leftChild = nullptr;
+        delete tmp;
+        treeSize--;
+    }
+    return;
 }
