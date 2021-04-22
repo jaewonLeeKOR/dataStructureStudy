@@ -29,8 +29,8 @@ class Sequence
     void clear();
     T at(int index) {return sequence[(frontIndex+index+sequenceSize)%sequenceSize];}
     T operator[](int index) const {return sequence[(frontIndex+index+sequenceSize)%sequenceSize];}
-    void print();
-    void printReverase();
+    void print() const;
+    void printReverse() const;
 };
 template<typename T>
 void Sequence<T>::insert(int targetIndex, int value)
@@ -73,7 +73,7 @@ void Sequence<T>::clear()
     rearIndex = frontIndex;
 }
 template<typename T>
-void Sequence<T>::print()
+void Sequence<T>::print() const
 {
     if(empty())
     {
@@ -84,6 +84,17 @@ void Sequence<T>::print()
     {
         i = (i+sequenceSize) % sequenceSize;
         cout << sequence[i] << " ";
+    }
+    cout << "\n";
+}
+template<typename T>
+void Sequence<T>::printReverse() const
+{
+    for(int i=rearIndex;i!=frontIndex;i--)
+    {
+        i = (i + sequenceSize) % sequenceSize;
+        int prevIndex = (i - 1 + sequenceSize) % sequenceSize;
+        cout << sequence[prevIndex] << " ";
     }
     cout << "\n";
 }
