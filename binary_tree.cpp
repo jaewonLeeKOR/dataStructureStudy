@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<string>
 using namespace std;
 template<typename T>
 class BinaryTree
@@ -47,7 +48,7 @@ const int BinaryTree<T>::depth(T targetElement) const
     {
         if(treeNode[i]->element == targetElement)
         {
-            targetElement = treeNode[i];
+            targetNode = treeNode[i];
             break;
         }
     }
@@ -67,7 +68,7 @@ const int BinaryTree<T>::height(T targetElement) const
     Node<T> *targetNode = nullptr;
     for(int i=0; i<treeNode.size(); i++)
     {
-        if(treeNode[i] == targetElement)
+        if(treeNode[i]->element == targetElement)
         {
             targetNode = treeNode[i];
             break;
@@ -171,7 +172,7 @@ void BinaryTree<T>::preOrderPrint(T targetElement)
     Node<T> *targetNode = nullptr;
     for(int i=0;i<treeNode.size(); i++)
     {
-        if(targetElement == treeNode[i])
+        if(targetElement == treeNode[i]->element)
         {
             targetNode = treeNode[i];
             break;
@@ -380,5 +381,98 @@ void BinaryTree<T>::inOrderScan(int amount)
                 }
             }
         }
+    }
+}
+int main()
+{
+    int testCase;
+    string s;
+    cin >> testCase;
+    BinaryTree<int> b(1);
+    for(int i=0; i<testCase; i++)
+    {
+        cin >> s;
+        if(s=="size")
+        {
+            cout << b.size() << "\n";
+        }
+        else if(s=="empty")
+        {
+            cout << b.empty() << "\n";
+        }
+        else if(s=="depth")
+        {
+            int e;
+            cin >> e;
+            cout << b.depth(e) << "\n";
+        }
+        else if(s=="height")
+        {
+            int e;
+            cin >> e;
+            cout << b.height(e) << "\n";
+        }
+        else if(s=="isRoot")
+        {
+            int e;
+            cin >> e;
+            b.isRoot(e);
+        }
+        else if(s=="isExternal")
+        {
+            int e;
+            cin >> e;
+            b.isExternal(e);
+        }
+        else if(s=="isInternal")
+        {
+            int e;
+            cin >> e;
+            b.isInternal(e);
+        }
+        else if(s=="insert")
+        {
+            int p,c;
+            cin >> p >> c;
+            b.insert(p,c);
+        }
+        else if(s=="preOrderScan")
+        {
+            int a;
+            cin >> a;
+            b.preOrderScan(a);
+        }
+        else if(s=="postOrderScan")
+        {
+            int a;
+            cin >> a;
+            b.postOrderScan(a);
+        }
+        else if(s=="inOrderScan")
+        {
+            int a;
+            cin >> a;
+            b.inOrderScan(a);
+        }
+        else if(s=="preOrderPrint")
+        {
+            int e;
+            cin >> e;
+            b.preOrderPrint(e);
+        }
+        else if(s=="postOrderPrint")
+        {
+            int e;
+            cin >> e;
+            b.postOrderPrint(e);
+        }
+        else if(s=="inOrderPrint")
+        {
+            int e;
+            cin >> e;
+            b.inOrderPrint(e);
+        }
+        else if(s=="q")
+            break;
     }
 }
