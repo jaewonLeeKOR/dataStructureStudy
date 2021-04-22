@@ -23,9 +23,9 @@ class Sequence
     void insert(int targetIndex, int value);
     void insertFront(int value) {insert(frontIndex, value);}
     void insertRear(int value) {insert(rearIndex - 1, value);}
-    T erase(int index);
-    T eraseFront();
-    T eraseRear();
+    T erase(int targetIndex);
+    T eraseFront() {sequence[frontIndex] = (T)NULL; frontIndex = (frontIndex+1+sequenceSize)%sequenceSize;}
+    T eraseRear() {rearIndex = (rearIndex-1+sequenceSize)%sequenceSize; sequence[rearIndex] = (T)NULL;}
     void clear();
     T at(int index);
     T operator[](int index) const;
@@ -37,15 +37,31 @@ void Sequence<T>::insert(int targetIndex, int value)
 {
     if(size() == sequenceSize-1)
     {
-        cout << "Sequnce is Full.\n";
+        cout << "Sequence is Full.\n";
         return ;
     }
     for(int i=rearIndex; i!=targetIndex; i--)
     {
-        if(i<0)
-            i = (i + sequenceSize) % sequenceSize;
-        sequence[i] = sequence[i-1];
+        i = (i + sequenceSize) % sequenceSize;
+        int prevIndex = (i-1 + sequenceSize) % sequenceSize;
+        sequence[i] = sequence[prevIndex];
     }
     sequence[targetIndex] = value;
-    rearIndex = (rearIndex + 1) % sequenceSize;
+    rearIndex = (rearIndex + 1 + sequenceSize) % sequenceSize;
+}
+template<typename T>
+T Sequence<T>::erase(int targetIndex)
+{
+    if(empty())
+    {
+        cout << "Sequence us Empty.\n";
+        return;
+    }
+    for(int i=targetIndex; i!=rearIndex; i++)
+    {
+        i = (i + sequenceSize) % sequenceSize;
+        int nextIndex = (i+1 +sequenceSize) % sequenceSize;
+        sequence[i] = sequence[nextIndex];
+    }
+    rearIndex = (rearIndex-1 + sequenceSize) % sequenceSize;
 }
