@@ -259,3 +259,35 @@ void BinaryTree<T>::eraseAll()
     }
     return;
 }
+template<typename T>
+void BinaryTree<T>::preOrderScan(int amount)
+{
+    vector<T> v_element;
+    vector<int> v_depth;
+    for(int i=0;i<amount; i++)
+    {
+        int t;
+        cin >> t;
+        v_element.push_back(t);
+    }
+    for(int i=0;i<amount; i++)
+    {
+        int t;
+        cin >> t;
+        v_depth.push_back(t);
+    }
+    for(int i=1; i<amount; i++)
+    {
+        T element = v_element[i], parentElement;
+        int depth = v_depth[i];
+        for(int j=i; j>=0; j--)
+        {
+            if(v_depth[j] == depth-1)
+            {
+                parentElement = v_element[j];
+                break;
+            }
+        }
+        insert(parentElement, element);
+    }
+}
