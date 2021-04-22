@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string>
 using namespace std;
 template<typename T>
 class Sequence
@@ -26,19 +27,19 @@ public:
     template<typename N>
     class Iterator
     {
-        Node<N> *node;
     public:
+        Node<N> *node;
         Iterator(Node<N> *n):node(n) {}
         Iterator<N> &operator++() {this->node = this->node->next; return *this;}
         Iterator<N> &operator--() {this->node = this->node->prev; return *this;}
         const bool operator==(const Iterator<N> &iter) const {return this->node == iter->node;}
         const bool operator!=(const Iterator<N> &iter) const {return this->node != iter->node;}
-        Node<N> &operator*() const {return this->node;}
+        Node<N> &operator*() const {return *(this->node);}
     };
     const int size() const {return sequenceSize;}
     const bool empty() const {return sequenceSize==0;}
-    Iterator<T> &front() {return Iterator<T>(header->next);}
-    Iterator<T> &rear() {return Iterator<T>(trailer);}
+    Iterator<T> &front() {Iterator<T> iter(header->next); return *iter;}
+    Iterator<T> &rear() {Iterator<T> iter(trailer); return *iter;}
     void insert(Iterator<T> iter, T value);
     void insertFront(T value) {insert(front(), value);}
     void insertRear(T value) {insert(rear(), value);}
@@ -55,7 +56,7 @@ public:
 template<typename T>
 void Sequence<T>::insert(Iterator<T> iter, T value)
 {
-    Node<T> *currentNode = iter->node;
+    Node<T> *currentNode = iter.node;
     Node<T> *prevNode = currentNode->prev;
     Node<T> *newNode = new Node<T>(value);
     currentNode->prev = newNode;
@@ -67,7 +68,7 @@ void Sequence<T>::insert(Iterator<T> iter, T value)
 template<typename T>
 T Sequence<T>::erase(Iterator<T> iter)
 {
-    Node<T> *currentNode = iter->node;
+    Node<T> *currentNode = iter.node;
     Node<T> *prevNode = currentNode->prev;
     Node<T> *nextNode = currentNode->next;
     prevNode->next = nextNode;
@@ -120,4 +121,107 @@ void Sequence<T>::printReverse() const
     for(Iterator<T> *i=rear(); i!=front(); --i)
         cout << i->node->prev->element << " ";
     cout << "\n";
+}
+int main()
+{
+    int testCase;
+    string s;
+    Sequence<int> sq;
+    Sequence<int>::Iterator<int> iter = sq.front();
+    cin >> testCase;
+    for(int i=0;i<testCase;i++)
+    {
+        cin >> s;
+        if(s=="++")
+        {
+            ++iter;
+        }
+        else if(s=="--")
+        {
+            --iter;
+        }
+        else if(s=="*")
+        {
+            cout << (*iter).element << "\n";
+        }
+        else if(s=="size")
+        {
+            cout << sq.size() << "\n";
+        }
+        else if(s=="empty")
+        {
+            if(sq.empty())
+                cout << "Sequence is Empty.\n";
+            else
+                cout << "Sequence is not Empty.\n";
+        }
+        else if(s=="front")
+        {
+            iter = sq.front();
+        }
+        else if(s=="rear")
+        {
+            iter = sq.rear();
+        }
+        else if(s=="insert")
+        {
+            int e;
+            cin >> e;
+            sq.insert(iter,e);
+        }
+        else if(s=="insertFront")
+        {
+            int e;
+            cin >> e;
+            sq.insertFront(e);
+        }
+        else if(s=="insertRear")
+        {
+            int e;
+            cin >> e;
+            sq.insertRear(e);
+        }
+        else if(s=="erase")
+        {
+            sq.erase(iter);
+        }
+        else if(s=="eraseFront")
+        {
+            sq.eraseFront();
+        }
+        else if(s=="eraseRear")
+        {
+            sq.eraseRear();
+        }
+        else if(s=="clear")
+        {
+            sq.clear();
+        }
+        else if(s=="at")
+        {
+            int e;
+            cin >> e;
+            cout << sq.at(e) << "\n";
+        }
+        else if(s=="[]")
+        {
+            int e;
+            cin >> e;
+            cout << sq[e] << "\n";
+        }
+        else if(s=="nowIndex")
+        {
+            cout << sq.nowIndex(iter) << "\n";
+        }
+        else if(s=="print")
+        {
+            sq.print();
+        }
+        else if(s=="printReverse")
+        {
+            sq.printReverse();
+        }
+        else if(s=="q")
+            break;
+    }
 }
