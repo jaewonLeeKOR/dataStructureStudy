@@ -37,8 +37,7 @@ public:
     };
     const int size() const {return sequenceSize;}
     const bool empty() const {return sequenceSize==0;}
-    const bool full() const;
-    Iterator<T> &front();
+    Iterator<T> &front() {return Iterator<T>(header);}
     Iterator<T> &rear();
     void insert(Iterator<T> iter, T value);
     void insertFront(T value);
