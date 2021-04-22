@@ -20,7 +20,7 @@ public:
         header = new Node<T>((T)NULL);
         trailer = new Node<T>((T)NULL);
         header->next = trailer;
-        tariler->next = header;
+        trailer->next = header;
         sequenceSize++;
     }
     template<typename N>
@@ -35,7 +35,7 @@ public:
         const bool operator!=(const Iterator<N> &iter) const;
         Node<N> &operator*() const;
     };
-    const int size() const;
+    const int size() const {return sequenceSize;}
     const bool empty() const;
     const bool full() const;
     Iterator<T> &front();
@@ -52,4 +52,4 @@ public:
     int noewIndex(Iterator<T> iter) const;
     void print() const;
     void printReverse() const;
-}
+};
