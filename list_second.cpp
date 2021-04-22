@@ -72,3 +72,10 @@ T List<T>::erase(const Iterator<T>& iter)
     delete tmp;
     return res;
 }
+template<typename T>
+void List<T>::print() const
+{
+    for(Iterator<T> iter = begin(); iter != end(); ++iter)
+        cout << iter.node->element << " ";
+    cout << "\n";
+}
