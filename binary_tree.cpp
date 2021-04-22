@@ -27,8 +27,8 @@ public:
     const int depth(T targetElement) const;
     const int height(T targetElement) const;
     bool isRoot(T targetElement) const {return targetElement==treeNode[0]->element;}
-    bool isExternal() const;
-    bool isInternal() const;
+    bool isExternal(T targetElement) const;
+    bool isInternal(T targetElement) const;
     void insert(T parentElement, T childElement);
     void preOrderScan(int amount);
     void postOrderScan(int amount);
@@ -85,4 +85,23 @@ const int BinaryTree<T>::height(T targetElement) const
         right = depth(targetNode->rightChild->element) + 1;
     h = left > right ? left : right;
     return h;
+}
+template<typename T>
+bool BinaryTree<T>::isExternal(T targetElement) const
+{
+    Node<T> *targetNode = nullptr;
+    for(int i=0; i<treeNode.size(); i++)
+    {
+        if(targetElement == treeNode[i]->element)
+        {
+            targetNode = treeNode[i];
+            break;
+        }
+    }
+    if(targetNode == nullptr)
+    {
+        cout << "Error : Element Not Found.\n";
+        return false;
+    }
+    return targetNode->leftChild == nullptr || targetNode->rightChild == nullptr;
 }
