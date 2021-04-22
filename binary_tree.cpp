@@ -29,7 +29,7 @@ public:
     bool isRoot(T targetElement) const {return targetElement==treeNode[0]->element;}
     bool isExternal(T targetElement) const;
     bool isInternal(T targetElement) const;
-    void insert(T parentElement, T childElement);
+    void insert(T parentElement, T childElement, int reverse=1);
     void preOrderScan(int amount);
     void postOrderScan(int amount);
     void inOrderScan(int amount);
@@ -125,7 +125,7 @@ bool BinaryTree<T>::isInternal(T targetElement) const
     return targetNode->leftChild != nullptr || targetNode->rightChild != nullptr;
 }
 template<typename T>
-void BinaryTree<T>::insert(T parentElement, T childElement)
+void BinaryTree<T>::insert(T parentElement, T childElement, int reverse)
 {
     Node<T> *parentNode = nullptr;
     for(int i=0; i<treeNode.size(); i++)
@@ -142,11 +142,21 @@ void BinaryTree<T>::insert(T parentElement, T childElement)
         return;
     }
     Node<T> *childNode = new Node<T>(childElement);
-    if(parentNode->leftChild == nullptr)
-        parentNode->leftChild = childNode;
-    else if(parentNode->rightChild == nullptr)
-        parentNode->rightChild = childNode;
-    else if(parentNode->leftChild != nullptr && parentNode->rightChild != nullptr)
+    if(reverse == 1)
+    {
+        if(parentNode->leftChild == nullptr)
+            parentNode->leftChild = childNode;
+        else if(parentNode->rightChild == nullptr)
+            parentNode->rightChild = childNode;
+    }
+    else if(reverse == -1)
+    {
+        if(parentNode->rightChild == nullptr)
+            parentNode->rightChild = childNode;
+        else if(parentNode->leftChild == nullptr)
+            parentNode->leftChild = childNode;
+    }
+    if(parentNode->leftChild != nullptr && parentNode->rightChild != nullptr)
     {
         cout << "Error : Child Node is Full.\n";
         return ;
@@ -289,5 +299,37 @@ void BinaryTree<T>::preOrderScan(int amount)
             }
         }
         insert(parentElement, element);
+    }
+}
+template<typename T>
+void BinaryTree<T>::postOrderScan(int amount)
+{
+    vector<T> v_element;
+    vector<int> v_depth;
+    for(int i=0;i<amount; i++)
+    {
+        int t;
+        cin >> t;
+        v_element.push_back(t);
+    }
+    for(int i=0;i<amount; i++)
+    {
+        int t;
+        cin >> t;
+        v_depth.push_back(t);
+    }
+    for(int i=amount-2; i>=0; i--)
+    {
+        T element = v_element[i], parentElement;
+        int depth = v_depth[i];
+        for(int j=i; j<amount; j++)
+        {
+            if(v_depth[j] == depth-1)
+            {
+                parentElement = v_element[j];
+                break;
+            }
+        }
+        insert(parentElement, element, -1);
     }
 }
