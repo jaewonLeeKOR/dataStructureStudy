@@ -29,7 +29,7 @@ public:
         Node<N> *node;
     public:
         Iterator(Node<N> *n):node(n) {}
-        Iterator<N> &operator++();
+        Iterator<N> &operator++() {this->node = this->node->next; return *this;}
         Iterator<N> &operator--();
         const bool operator==(const Iterator<N> &iter) const;
         const bool operator!=(const Iterator<N> &iter) const;
