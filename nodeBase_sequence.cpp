@@ -114,3 +114,10 @@ void Sequence<T>::print() const
         cout << i->node->element << " ";
     cout << "\n";
 }
+template<typename T>
+void Sequence<T>::printReverse() const
+{
+    for(Iterator<T> *i=rear(); i!=front(); --i)
+        cout << i->node->prev->element << " ";
+    cout << "\n";
+}
