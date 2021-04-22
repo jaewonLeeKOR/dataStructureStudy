@@ -19,7 +19,7 @@ class Sequence
     const int size() const {return (rearIndex - frontIndex + sequenceSize)%sequenceSize;}
     const bool empty() const {return rearIndex == frontIndex;}
     const T front() const {return sequence[frontIndex];}
-    const T rear() const;
+    const T rear() const {return sequence[rearIndex-1];}
     void insert(int index, int value);
     void insertFront(int value);
     void insertRear(int value);
