@@ -30,7 +30,7 @@ public:
     public:
         Iterator(Node<N> *n):node(n) {}
         Iterator<N> &operator++() {this->node = this->node->next; return *this;}
-        Iterator<N> &operator--();
+        Iterator<N> &operator--() {this->node = this->node->prev; return *this;}
         const bool operator==(const Iterator<N> &iter) const;
         const bool operator!=(const Iterator<N> &iter) const;
         Node<N> &operator*() const;
