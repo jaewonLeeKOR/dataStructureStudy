@@ -25,7 +25,7 @@ public:
     const int size() const {return treeSize;}
     const bool empty() const {return treeSize == 0;}
     const int depth(T targetElement) const;
-    const int height() const;
+    const int height(T targetElement) const;
     bool isRoot() const;
     bool isExternal() const;
     bool isInternal() const;
@@ -63,4 +63,29 @@ const int BinaryTree<T>::depth(T targetElement) const
         right = depth(targetNode->rightChild->element) + 1;
     d = left > right ? left : right;
     return d;
+}
+template<typename T>
+const int BinaryTree<T>::height(T targetElement) const
+{
+    Node<T> *targetNode = nullptr;
+    for(int i=0; i<treeNode.size(); i++)
+    {
+        if(treeNode[i] == targetElement)
+        {
+            targetNode = treeNode[i];
+            break;
+        }
+    }
+    if(targetNode == nullptr)
+    {
+        cout << "Error : Element Not Found.\n";
+        return -1;
+    }
+    int h = 0, left = 0, right = 0;
+    if(targetNode->leftChild != nullptr)
+        left = depth(targetNode->leftChild->element) + 1;
+    if(targetNode->rightChild != nullptr)
+        right = depth(targetNode->rightChild->element) + 1;
+    h = left > right ? left : right;
+    return h;
 }
