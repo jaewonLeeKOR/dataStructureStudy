@@ -107,3 +107,10 @@ int Sequence<T>::nowIndex(Iterator<T> iter) const
         count++;
     return count;
 }
+template<typename T>
+void Sequence<T>::print() const
+{
+    for(Iterator<T> *i=front(); i!=rear(); ++i)
+        cout << i->node->element << " ";
+    cout << "\n";
+}
