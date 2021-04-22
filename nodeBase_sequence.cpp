@@ -83,3 +83,11 @@ void Sequence<T>::clear()
     while(empty())
         erase(front());
 }
+template<typename T>
+T Sequence<T>::at(int index) const
+{
+    Iterator<T> *iter = front();
+    for(int i=0; i<index;i++)
+        ++iter;
+    return iter->node->element;
+}
