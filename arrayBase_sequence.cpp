@@ -72,3 +72,18 @@ void Sequence<T>::clear()
         sequence[i] = (T)NULL;
     rearIndex = frontIndex;
 }
+template<typename T>
+void Sequence<T>::print()
+{
+    if(empty())
+    {
+        cout << "Sequence is Empty.\n";
+        return;
+    }
+    for(int i=frontIndex;i!=rearIndex;i++)
+    {
+        i = (i+sequenceSize) % sequenceSize;
+        cout << sequence[i] << " ";
+    }
+    cout << "\n";
+}
