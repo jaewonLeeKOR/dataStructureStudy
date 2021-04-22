@@ -20,9 +20,9 @@ class Sequence
     const bool empty() const {return rearIndex == frontIndex;}
     const T front() const {return sequence[frontIndex];}
     const T rear() const {return sequence[rearIndex-1];}
-    void insert(int index, int value);
-    void insertFront(int value);
-    void insertRear(int value);
+    void insert(int targetIndex, int value);
+    void insertFront(int value) {insert(frontIndex, value);}
+    void insertRear(int value) {insert(rearIndex - 1, value);}
     T erase(int index);
     T eraseFront();
     T eraseRear();
@@ -32,3 +32,20 @@ class Sequence
     void print();
     void printReverase();
 };
+template<typename T>
+void Sequence<T>::insert(int targetIndex, int value)
+{
+    if(size() == sequenceSize-1)
+    {
+        cout << "Sequnce is Full.\n";
+        return ;
+    }
+    for(int i=rearIndex; i!=targetIndex; i--)
+    {
+        if(i<0)
+            i = (i + sequenceSize) % sequenceSize;
+        sequence[i] = sequence[i-1];
+    }
+    sequence[targetIndex] = value;
+    rearIndex = (rearIndex + 1) % sequenceSize;
+}
