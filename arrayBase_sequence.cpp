@@ -23,11 +23,11 @@ class Sequence
     const T front() const {return sequence[frontIndex];}
     const T rear() const {return sequence[rearIndex-1];}
     void insert(int targetIndex, int value);
-    void insertFront(int value) {insert(frontIndex, value);}
-    void insertRear(int value) {insert(rearIndex - 1, value);}
+    void insertFront(int value) {if(full()){insert(0,value);}frontIndex=(frontIndex-1+sequenceSize)%sequenceSize;sequence[frontIndex]=value;};
+    void insertRear(int value) {insert(rearIndex, value);}
     T erase(int targetIndex=0);
-    T eraseFront() {if(empty()){erase();}sequence[frontIndex] = (T)NULL; frontIndex = (frontIndex+1+sequenceSize)%sequenceSize;}
-    T eraseRear() {if(empty()){erase();}rearIndex = (rearIndex-1+sequenceSize)%sequenceSize; sequence[rearIndex] = (T)NULL;}
+    T eraseFront() {T res = sequence[frontIndex];if(empty()){erase();}sequence[frontIndex] = (T)NULL; frontIndex = (frontIndex+1+sequenceSize)%sequenceSize; return res;}
+    T eraseRear() {T res = sequence[(rearIndex-1+sequenceSize)%sequenceSize];if(empty()){erase();}rearIndex = (rearIndex-1+sequenceSize)%sequenceSize; sequence[rearIndex] = (T)NULL;return res;}
     void clear();
     T at(int index) {return sequence[(frontIndex+index+sequenceSize)%sequenceSize];}
     T operator[](int index) const {return sequence[(frontIndex+index+sequenceSize)%sequenceSize];}
@@ -42,6 +42,11 @@ void Sequence<T>::insert(int targetIndex, int value)
         cout << "Sequence is Full.\n";
         return ;
     }
+    if(targetIndex > sequenceSize)
+    {
+        cout << "IndexError.\n";
+        return;
+    }
     for(int i=rearIndex; i!=targetIndex; i--)
     {
         i = (i + sequenceSize) % sequenceSize;
@@ -54,6 +59,7 @@ void Sequence<T>::insert(int targetIndex, int value)
 template<typename T>
 T Sequence<T>::erase(int targetIndex)
 {
+    T res = sequence[targetIndex];
     if(empty())
     {
         cout << "Sequence us Empty.\n";
@@ -66,6 +72,7 @@ T Sequence<T>::erase(int targetIndex)
         sequence[i] = sequence[nextIndex];
     }
     rearIndex = (rearIndex-1 + sequenceSize) % sequenceSize;
+    return res;
 }
 template<typename T>
 void Sequence<T>::clear()
@@ -85,6 +92,8 @@ void Sequence<T>::print() const
     for(int i=frontIndex;i!=rearIndex;i++)
     {
         i = (i+sequenceSize) % sequenceSize;
+        if(i==rearIndex)
+            break;
         cout << sequence[i] << " ";
     }
     cout << "\n";
@@ -96,6 +105,8 @@ void Sequence<T>::printReverse() const
     {
         i = (i + sequenceSize) % sequenceSize;
         int prevIndex = (i - 1 + sequenceSize) % sequenceSize;
+        if(i==frontIndex)
+            break;
         cout << sequence[prevIndex] << " ";
     }
     cout << "\n";
