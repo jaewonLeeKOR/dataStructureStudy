@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string>
 using namespace std;
 template<typename T>
 class Sequence
@@ -56,7 +57,7 @@ T Sequence<T>::erase(int targetIndex)
     if(empty())
     {
         cout << "Sequence us Empty.\n";
-        return;
+        return (T)NULL;
     }
     for(int i=targetIndex; i!=rearIndex; i++)
     {
@@ -98,4 +99,98 @@ void Sequence<T>::printReverse() const
         cout << sequence[prevIndex] << " ";
     }
     cout << "\n";
+}
+int main()
+{
+    cout << "Input testCase & sequence size : ";
+    int testCase, size;
+    string s;
+    cin >> testCase >> size;
+    Sequence<int> sq(size);
+    for(int i=0;i<testCase;i++)
+    {
+        cin >> s;
+        if(s=="size")
+        {
+            cout << sq.size() << "\n";
+        }
+        else if(s=="empty")
+        {
+            if(sq.empty())
+                cout << "Sequence is Empty.\n";
+            else
+                cout << "Sequence is not Empty.\n";
+        }
+        else if(s=="full")
+        {
+            if(sq.full())
+                cout << "Sequence is Full.\n";
+            else
+                cout << "Sequence is not Full.\n";
+        }
+        else if(s=="front")
+        {
+            cout << sq.front() << "\n";
+        }
+        else if(s=="rear")
+        {
+            cout << sq.rear() << "\n";
+        }
+        else if(s=="insert")
+        {
+            int index, data;
+            cin >> index >> data;
+            sq.insert(index, data);
+        }
+        else if(s=="insertFront")
+        {
+            int data;
+            cin >>data;
+            sq.insertFront(data);
+        }
+        else if(s=="insertRear")
+        {
+            int data;
+            cin >> data;
+            sq.insertRear(data);
+        }
+        else if(s=="erase")
+        {
+            int index;
+            cin >> index;
+            sq.erase(index);
+        }
+        else if(s=="eraseFront")
+        {
+            sq.eraseFront();
+        }
+        else if(s=="eraseRear")
+        {
+            sq.eraseRear();
+        }
+        else if(s=="clear")
+        {
+            sq.clear();
+        }
+        else if(s=="at")
+        {
+            int index;
+            cin>> index;
+            cout << sq.at(index) << "\n";
+        }
+        else if(s=="[]")
+        {
+            int index;
+            cin >> index;
+            cout << sq[index] << "\n";
+        }
+        else if(s=="print")
+        {
+            sq.print();
+        }
+        else if(s=="printReverse")
+        {
+            sq.printReverse();
+        }
+    }
 }
