@@ -91,3 +91,11 @@ T Sequence<T>::at(int index) const
         ++iter;
     return iter->node->element;
 }
+template<typename T>
+T Sequence<T>::operator[](int index) const
+{
+    Iterator<T> *iter = front();
+    for(int i=0;i<index;i++)
+        ++iter;
+    return iter->node->element;
+}
