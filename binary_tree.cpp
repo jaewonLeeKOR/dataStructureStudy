@@ -155,3 +155,27 @@ void BinaryTree<T>::insert(T parentElement, T childElement)
     treeSize++;
     return ;
 }
+template<typename T>
+void BinaryTree<T>::preOrderPrint(T targetElement)
+{
+    Node<T> *targetNode = nullptr;
+    for(int i=0;i<treeNode.size(); i++)
+    {
+        if(targetElement == treeNode[i])
+        {
+            targetNode = treeNode[i];
+            break;
+        }
+    }
+    if(targetNode == nullptr)
+    {
+        cout << "Error : Element Not Found.\n";
+        return ;
+    }
+    cout << targetNode->element << " ";
+    if(targetNode->leftChild != nullptr)
+        preOrderPrint(targetNode->leftChild->element);
+    if(targetNode->rightChild != nullptr)
+        preOrderPrint(targetNode->rightChild->element);
+    return ;
+}
