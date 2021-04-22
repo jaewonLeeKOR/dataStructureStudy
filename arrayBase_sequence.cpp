@@ -23,9 +23,9 @@ class Sequence
     void insert(int targetIndex, int value);
     void insertFront(int value) {insert(frontIndex, value);}
     void insertRear(int value) {insert(rearIndex - 1, value);}
-    T erase(int targetIndex);
-    T eraseFront() {sequence[frontIndex] = (T)NULL; frontIndex = (frontIndex+1+sequenceSize)%sequenceSize;}
-    T eraseRear() {rearIndex = (rearIndex-1+sequenceSize)%sequenceSize; sequence[rearIndex] = (T)NULL;}
+    T erase(int targetIndex=0);
+    T eraseFront() {if(empty()){erase();}sequence[frontIndex] = (T)NULL; frontIndex = (frontIndex+1+sequenceSize)%sequenceSize;}
+    T eraseRear() {if(empty()){erase();}rearIndex = (rearIndex-1+sequenceSize)%sequenceSize; sequence[rearIndex] = (T)NULL;}
     void clear();
     T at(int index);
     T operator[](int index) const;
