@@ -32,26 +32,26 @@ public:
         Iterator(Node<N> *n):node(n) {}
         Iterator<N> &operator++() {this->node = this->node->next; return *this;}
         Iterator<N> &operator--() {this->node = this->node->prev; return *this;}
-        const bool operator==(const Iterator<N> &iter) const {return this->node == iter->node;}
-        const bool operator!=(const Iterator<N> &iter) const {return this->node != iter->node;}
+        const bool operator==(const Iterator<N> &iter) const {return this->node == iter.node;}
+        const bool operator!=(const Iterator<N> &iter) const {return this->node != iter.node;}
         Node<N> &operator*() const {return *(this->node);}
     };
     const int size() const {return sequenceSize;}
     const bool empty() const {return sequenceSize==0;}
-    Iterator<T> &front() {Iterator<T> iter(header->next); return *iter;}
-    Iterator<T> &rear() {Iterator<T> iter(trailer); return *iter;}
+    Iterator<T> front() {Iterator<T> iter(header->next); return iter;}
+    Iterator<T> rear() {Iterator<T> iter(trailer); return iter;}
     void insert(Iterator<T> iter, T value);
     void insertFront(T value) {insert(front(), value);}
     void insertRear(T value) {insert(rear(), value);}
     T erase(Iterator<T> iter);
-    T eraseFront() {erase(front());}
-    T eraseRear() {erase(--rear());}
+    T eraseFront() {return erase(front());}
+    T eraseRear() {return erase(--rear());}
     void clear();
-    T at(int index) const;
-    T operator[](int index) const;
-    int nowIndex(Iterator<T> iter) const;
-    void print() const;
-    void printReverse() const;
+    T at(int index);
+    T operator[](int index);
+    int nowIndex(Iterator<T> iter);
+    void print();
+    void printReverse();
 };
 template<typename T>
 void Sequence<T>::insert(Iterator<T> iter, T value)
@@ -85,41 +85,41 @@ void Sequence<T>::clear()
         erase(front());
 }
 template<typename T>
-T Sequence<T>::at(int index) const
+T Sequence<T>::at(int index)
 {
-    Iterator<T> *iter = front();
+    Iterator<T> iter = front();
     for(int i=0; i<index;i++)
         ++iter;
-    return iter->node->element;
+    return iter.node->element;
 }
 template<typename T>
-T Sequence<T>::operator[](int index) const
+T Sequence<T>::operator[](int index)
 {
-    Iterator<T> *iter = front();
+    Iterator<T> iter = front();
     for(int i=0;i<index;i++)
         ++iter;
-    return iter->node->element;
+    return iter.node->element;
 }
 template<typename T>
-int Sequence<T>::nowIndex(Iterator<T> iter) const
+int Sequence<T>::nowIndex(Iterator<T> iter)
 {
     int count = 0;
-    for(Iterator<T> *i=front(); i!=iter; ++iter)
+    for(Iterator<T> i=front(); i!=iter; ++iter)
         count++;
     return count;
 }
 template<typename T>
-void Sequence<T>::print() const
+void Sequence<T>::print()
 {
-    for(Iterator<T> *i=front(); i!=rear(); ++i)
-        cout << i->node->element << " ";
+    for(Iterator<T> i=front(); i!=rear(); ++i)
+        cout << i.node->element << " ";
     cout << "\n";
 }
 template<typename T>
-void Sequence<T>::printReverse() const
+void Sequence<T>::printReverse()
 {
-    for(Iterator<T> *i=rear(); i!=front(); --i)
-        cout << i->node->prev->element << " ";
+    for(Iterator<T> i=rear(); i!=front(); --i)
+        cout << i.node->prev->element << " ";
     cout << "\n";
 }
 int main()
