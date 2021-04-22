@@ -79,3 +79,10 @@ void List<T>::print() const
         cout << iter.node->element << " ";
     cout << "\n";
 }
+template<typename T>
+void List<T>::printReverse() const
+{
+    for(Iterator<T> iter = end(); iter != begin(); --iter)
+        cout << iter.node->prev->element << " ";
+    cout << "\n";
+}
