@@ -43,8 +43,8 @@ public:
     void insertFront(T value) {insert(front(), value);}
     void insertRear(T value) {insert(rear(), value);}
     T erase(Iterator<T> iter);
-    T eraseFront();
-    T eraseRear();
+    T eraseFront() {erase(front());}
+    T eraseRear() {erase(--rear());}
     void clear();
     T at(int index) const;
     T operator[](int index) const;
@@ -63,4 +63,17 @@ void Sequence<T>::insert(Iterator<T> iter, T value)
     newNode->next = currentNode;
     newNode->prev = prevNode;
     sequenceSize++;
+}
+template<typename T>
+T Sequence<T>::erase(Iterator<T> iter)
+{
+    Node<T> *currentNode = iter->node;
+    Node<T> *prevNode = currentNode->prev;
+    Node<T> *nextNode = currentNode->next;
+    prevNode->next = nextNode;
+    nextNode->prev = prevNode;
+    T res = currentNode->element;
+    delete currentNode;
+    sequenceSize--;
+    return res;
 }
