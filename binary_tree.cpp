@@ -14,17 +14,17 @@ class BinaryTree
         Node(N e):element(e),parent(nullptr),leftChild(nullptr),rightChild(nullptr) {}
     };
     int treeSize;
-    vector<Node<T>*> treeNodes;
+    vector<Node<T>*> treeNode;
 public:
     BinaryTree(T rootElement):treeSize(0)
     {
         Node<T> *newNode = new Node<T>(rootElement);
-        treeNodes.push_back(newNode);
+        treeNode.push_back(newNode);
         treeSize++;
     }
     const int size() const {return treeSize;}
     const bool empty() const {return treeSize == 0;}
-    const int depth() const;
+    const int depth(T targetElement) const;
     const int height() const;
     bool isRoot() const;
     bool isExternal() const;
@@ -39,3 +39,28 @@ public:
     void erase(T targetElement);
     void eraseAll();
 };
+template<typename T>
+const int BinaryTree<T>::depth(T targetElement) const
+{
+    Node<T> *targetNode = nullptr;
+    for(int i=0; i<treeNode.size(); i++)
+    {
+        if(treeNode[i]->element == targetElement)
+        {
+            targetElement = treeNode[i];
+            break;
+        }
+    }
+    if(targetNode == nullptr)
+    {
+        cout << "Error : Element NOt Found.\n";
+        return -1;
+    }
+    int d = 0, left = 0, right = 0;
+    if(targetNode->leftChild != nullptr)
+        left = depth(targetNode->leftChild->element) + 1;
+    if(targetNode->rightChild != nullptr)
+        right = depth(targetNode->rightChild->element) + 1;
+    d = left > right ? left : right;
+    return d;
+}
