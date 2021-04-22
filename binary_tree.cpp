@@ -333,3 +333,52 @@ void BinaryTree<T>::postOrderScan(int amount)
         insert(parentElement, element, -1);
     }
 }
+template<typename T>
+void BinaryTree<T>::inOrderScan(int amount)
+{
+    vector<T> v_element;
+    vector<int> v_depth;
+    for(int i=0; i<amount; i++)
+    {
+        int e;
+        cin >> e;
+        v_element.push_back(e);
+    }
+    for(int i=0; i<amount; i++)
+    {
+        int e;
+        cin >> e;
+        v_depth.push_back(e);
+    }
+    int maxDepth = 0;
+    for(int i=0;i<amount;i++)
+        maxDepth = maxDepth > v_depth[i] ? maxDepth : v_depth[i];
+    for(int i=0; i<maxDepth; i++)
+    {
+        vector<int> index;
+        for(int j=0;j<amount;j++)
+        {
+            if(v_depth[j] == i)
+                index.push_back(j);
+        }
+        for(int j=0; j<index.size(); j++)
+        {
+            for(int k=index[j]; k>=0; k--)
+            {
+                if(v_depth[k] == i+1)
+                {
+                    insert(v_element[index[j]], v_element[k]);
+                    break;
+                }
+            }
+            for(int k=index[j]; k<amount; k++)
+            {
+                if(v_depth[k] == i+1)
+                {
+                    insert(v_element[index[j]], v_element[k]);
+                    break;
+                }
+            }
+        }
+    }
+}
