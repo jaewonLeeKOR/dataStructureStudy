@@ -103,5 +103,24 @@ bool BinaryTree<T>::isExternal(T targetElement) const
         cout << "Error : Element Not Found.\n";
         return false;
     }
-    return targetNode->leftChild == nullptr || targetNode->rightChild == nullptr;
+    return targetNode->leftChild == nullptr && targetNode->rightChild == nullptr;
+}
+template<typename T>
+bool BinaryTree<T>::isInternal(T targetElement) const
+{
+    Node<T> *targetNode = nullptr;
+    for(int i=0; i<treeNode.size(); i++)
+    {
+        if(targetElement == treeNode[i]->element)
+        {
+            targetNode = treeNode[i];
+            break;
+        }
+    }
+    if(targetNode == nullptr)
+    {
+        cout << "Error : Element Not Found.\n";
+        return false;
+    }
+    return targetNode->leftChild != nullptr || targetNode->rightChild != nullptr;
 }
