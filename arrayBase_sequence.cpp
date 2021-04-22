@@ -28,7 +28,7 @@ class Sequence
     T eraseRear() {if(empty()){erase();}rearIndex = (rearIndex-1+sequenceSize)%sequenceSize; sequence[rearIndex] = (T)NULL;}
     void clear();
     T at(int index) {return sequence[(frontIndex+index+sequenceSize)%sequenceSize];}
-    T operator[](int index) const;
+    T operator[](int index) const {return sequence[(frontIndex+index+sequenceSize)%sequenceSize];}
     void print();
     void printReverase();
 };
