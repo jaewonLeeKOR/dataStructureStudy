@@ -33,7 +33,7 @@ public:
         Iterator<N> &operator--() {this->node = this->node->prev; return *this;}
         const bool operator==(const Iterator<N> &iter) const {return this->node == iter->node;}
         const bool operator!=(const Iterator<N> &iter) const {return this->node != iter->node;}
-        Node<N> &operator*() const;
+        Node<N> &operator*() const {return this->node;}
     };
     const int size() const {return sequenceSize;}
     const bool empty() const {return sequenceSize==0;}
