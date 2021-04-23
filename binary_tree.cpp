@@ -370,36 +370,36 @@ void BinaryTree<T>::inOrderScan(int amount)
         }
         for(int j=0; j<index.size(); j++) // 해당 높이 인덱스 순회
         {
-            int leftMax=-1, rightMax=amount;
-            for(int k=index[j]; k>=0; k--) // 왼쪽 상한값 구하기
+            int leftMax=-1, rightMax=amount, currentIndex = index[j];
+            for(int k=currentIndex - 1; k>=0; k--) // 왼쪽 상한값 구하기
             {
-                if(v_depth[k] == i-1)
+                if(v_depth[k] < i)
                 {
                     leftMax = k;
                     break;
                 }
             }
-            for(int k=index[j]; k<amount; k++) // 오른쪽 상한값 구하기
+            for(int k=currentIndex + 1; k<amount; k++) // 오른쪽 상한값 구하기
             {
-                if(v_depth[k] == i-1)
+                if(v_depth[k] < i)
                 {
                     rightMax = k;
                     break;
                 }
             }
-            for(int k=index[j]; k>leftMax; k--) // 왼쪽 자식 구하기
+            for(int k=currentIndex - 1; k > leftMax; k--) // 왼쪽 자식 구하기
             {
                 if(v_depth[k] == i+1)
                 {
-                    insert(v_element[index[j]], v_element[k]);
+                    insert(v_element[currentIndex], v_element[k]);
                     break;
                 }
             }
-            for(int k=index[j]; k<rightMax; k++) // 오른쪽 자식 구하기
+            for(int k=currentIndex + 1; k < rightMax; k++) // 오른쪽 자식 구하기
             {
                 if(v_depth[k] == i+1)
                 {
-                    insert(v_element[index[j]], v_element[k]);
+                    insert(v_element[currentIndex], v_element[k]);
                     break;
                 }
             }

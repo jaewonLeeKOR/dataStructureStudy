@@ -39,8 +39,8 @@ public:
     Iterator<T> begin() {return Iterator<T>(header->next);}
     Iterator<T> end() {return Iterator<T>(trailer);}
     void insert(const Iterator<T>& iter, T value);
-    void insertFront(T value) {insert(begin(), value);}
-    void insertEnd(T value) {insert(end(), value);}
+    void insertFront(const T& value) {insert(begin(), value);}
+    void insertEnd(const T& value) {insert(end(), value);}
     T erase(const Iterator<T>& iter);
     T eraseFront() {return erase(begin());}
     T eraseEnd() {return erase(trailer->prev);}
