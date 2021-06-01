@@ -28,6 +28,7 @@ public:
   void insert(T value);
   T priorityValue();
   T removePriority();
+  T rank(int rank);
 };
 template<typename T>
 int PriorityQueue<T>::size() {
@@ -70,5 +71,15 @@ T PriorityQueue<T>::removePriority() {
   tmp->prev->next = tmp->next;
   tmp->next->prev = tmp->prev;
   delete tmp;
+}
+template<typename T>
+T PriorityQueue<T>::rank(int rank) {
+  PriorityQueue<T> tmp = this;
+  int count = rank-1;
+  if(count > size())
+    return (T)NULL;
+  for(int i=0; i<count; i++)
+    tmp.removePriority();
+  cout << tmp.priorityValue();
 }
 int main() {}
