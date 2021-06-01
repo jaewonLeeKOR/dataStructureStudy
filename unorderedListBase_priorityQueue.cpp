@@ -23,7 +23,7 @@ public:
     trailer->prev = header;
   }
   int size();
-  bool empty();
+  bool empty() {return size() == 0;}
   void print();
   void insert(T value);
   T priorityValue();
