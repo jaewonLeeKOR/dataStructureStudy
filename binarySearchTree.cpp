@@ -18,6 +18,7 @@ public:
   void insert(T value, Node<T> *root = nullptr);
   void remove(T target);
   void print(Node<T> *target = nullptr);
+  Node<T> *search(T targetValue, Node<T> *root = nullptr);
 };
 template<typename T>
 void BST<T>::insert(T value, Node<T> *temp) {
@@ -41,17 +42,9 @@ void BST<T>::insert(T value, Node<T> *temp) {
 }
 template<typename T>
 void BST<T>::remove(T target) {
-  Node<T> *tmp = root;
-  if(tmp == nullptr)
+  if(root == nullptr)
     return;
-  while(tmp!=nullptr) {
-    if(tmp->value == target)
-      break;
-    else if(tmp->value > target)
-      tmp = tmp->left;
-    else if(tmp->value < target)
-      tmp = tmp->right;
-  }
+  Node<T> *tmp = search(target, root);
   if(tmp == nullptr) // 값을 찾을 수 없을때
     return;
   if(tmp == root && tmp->left == nullptr && tmp->right == nullptr) // 값이 루트이며, 자식이 없을때
@@ -99,6 +92,19 @@ void BST<T>::print(Node<T> *target) {
     print(target->right);
   if(target == root)
     cout << "\n";
+}
+template<typename T>
+Node<T> *BST<T>::search(T targetValue, Node<T> *temp) {
+  if(temp == nullptr)
+    temp = root;
+  if(targetValue == temp->value)
+    return temp;
+  else if(targetValue < temp->value && temp->left != nullptr)
+    return search(targetValue, temp->left);
+  else if(targetValue > temp->value && temp->right != nullptr)
+    return search(targetValue, temp->right);
+  else
+    return nullptr;
 }
 int main() {
   int testCase;
