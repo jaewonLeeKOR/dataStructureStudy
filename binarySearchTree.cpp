@@ -20,23 +20,23 @@ public:
   void print(Node<T> *target = nullptr);
 };
 template<typename T>
-void BST<T>::insert(T value, Node<T> *root) {
-  if(root == nullptr)
-    root = this->root;
+void BST<T>::insert(T value, Node<T> *temp) {
+  if(temp == nullptr) // 최초 호출시 작동
+    temp = this->root;
   Node<T> *newNode = new Node<T>(value);
-  if(root == nullptr)
+  if(this->root == nullptr) // BST가 비어있을때
     this->root = newNode;
-  if(root->value > value && root->left != nullptr)
-    return insert(value, root->left);
-  else if(root->value <= value && root->right != nullptr)
-    return insert(value, root->right);
-  if(root->value > value && root->left == nullptr) {
-    root->left = newNode;
-    newNode->parent = root;
+  else if(root->value > value && temp->left != nullptr)
+    insert(value, temp->left);
+  else if(root->value <= value && temp->right != nullptr)
+    insert(value, temp->right);
+  else if(root->value > value && temp->left == nullptr) {
+    temp->left = newNode;
+    newNode->parent = temp;
   }
-  else if(root->value <= value && root->right == nullptr) {
-    root->right = newNode;
-    newNode->parent = root;
+  else if(root->value <= value && temp->right == nullptr) {
+    temp->right = newNode;
+    newNode->parent = temp;
   }
 }
 template<typename T>
@@ -92,11 +92,13 @@ template<typename T>
 void BST<T>::print(Node<T> *target) {
   if(target == nullptr)
     target = root;
-  if(target == nullptr)
-    return;
-  print(target->left);
+  if(target->left != nullptr)
+    print(target->left);
   cout << target->value << " ";
-  print(target->right);
+  if(target->right != nullptr)
+    print(target->right);
+  if(target == root)
+    cout << "\n";
 }
 int main() {
   int testCase;
