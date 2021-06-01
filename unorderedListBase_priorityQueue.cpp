@@ -50,4 +50,13 @@ void PriorityQueue<T>::insert(T value) {
   trailer->prev->next = newNode;
   trailer->prev = newNode;
 }
+template<typename T>
+T PriorityQueue<T>::priorityValue() {
+  int res = 200000000 * priority;
+  for(Node<T> *tmp = header->next; tmp != trailer; tmp = tmp->next) {
+    if(res * priority > tmp->value * priority)
+      res = tmp->value;
+  }
+  return res;
+}
 int main() {}
