@@ -33,3 +33,18 @@ public:
     return size() == 0;
   }
 };
+template<typename T>
+void PriorityQueue<T>::insert(int key, T value) {
+  Entry<T> newEntry = new Entry<T>(key,value);
+  Entry<T> tmp=header->next;
+  for(; tmp != trailer; tmp = tmp->next) {
+    if(key > tmp->key)
+      continue;
+    if(key <= tmp->key)
+      break;
+  }
+  tmp->prev->next = newEntry;
+  newEntry->prev = tmp->prev;
+  tmp->prev = newEntry;
+  newEntry->next = tmp;
+}
