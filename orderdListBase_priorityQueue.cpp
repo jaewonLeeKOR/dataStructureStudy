@@ -1,6 +1,7 @@
 #include<iostream>
-#define asc 1
-#define desc -1
+#include<string>
+#define asc 1 //오름차순
+#define desc -1 //내림차순
 using namespace std;
 template<typename T>
 struct Entry {
@@ -8,7 +9,7 @@ struct Entry {
   T value;
   Entry *next;
   Entry *prev;
-  Entry():key(0),value(NULL),next(nullptr),prev(nullptr) {}
+  Entry():key(0),value(""),next(nullptr),prev(nullptr) {}
   Entry(int k, T v):key(k),value(v),next(nullptr),prev(nullptr) {}
 };
 template<typename T>
@@ -32,15 +33,16 @@ public:
   bool empty() { //우선순위 큐가 비어있는지 리턴한다.
     return size() == 0;
   }
+  void print();
 };
 template<typename T>
 void PriorityQueue<T>::insert(int key, T value) {
   Entry<T> *newEntry = new Entry<T>(key,value);
   Entry<T> *tmp=header->next;
   for(; tmp != trailer; tmp = tmp->next) {
-    if(key > tmp->key)
+    if(key * priority > tmp->key * priority)
       continue;
-    if(key <= tmp->key)
+    if(key * priority <= tmp->key * priority)
       break;
   }
   tmp->prev->next = newEntry;
@@ -77,7 +79,50 @@ T PriorityQueue<T>::rank(int rank) {
 template<typename T>
 int PriorityQueue<T>::size() {
   int count = 0;
-  for(Entry<T> tmp = header->next; tmp != trailer; tmp = tmp->next)
+  for(Entry<T> *tmp = header->next; tmp != trailer; tmp = tmp->next)
     count++;
   return count;
+}
+template<typename T>
+void PriorityQueue<T>::print() {
+  for(Entry<T> *tmp = header->next; tmp != trailer; tmp=tmp->next)
+    cout << "( " << tmp->key << " : " << tmp->value << " )\n";
+}
+int main() {
+  string s;
+  int testCase, pri;
+  cout << "Insert Repeat time : ";
+  cin >> testCase;
+  cout << "Insert Priority (a,d) : ";
+  cin >> s;
+  if(s == "asc")
+    pri = asc;
+  else if(s == "desc")
+    pri = desc;
+  PriorityQueue<string> p(pri);
+  for(int i=0; i<testCase; i++) {
+    cin >> s;
+    if(s=="insert") {
+      int idx;
+      string value;
+      cin >> idx >> value;
+      p.insert(idx, value);
+    } else if(s=="removePriority") {
+      cout << p.removePriority() << "\n";
+    } else if(s=="priorityKey") {
+      cout << p.priorityKey() << "\n";
+    } else if(s=="priorityValue") {
+      cout << p.priorityValue() << "\n";
+    } else if(s=="rank") {
+      int r;
+      cin >> r;
+      cout << p.rank(r) << "\n";
+    } else if(s=="size") {
+      cout << p.size() << "\n";
+    } else if(s=="empty") {
+      cout << p.empty() << "\n";
+    } else if(s=="print") {
+      p.print();
+    }
+  }
 }
