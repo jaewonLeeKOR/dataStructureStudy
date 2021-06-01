@@ -63,3 +63,7 @@ template<typename T>
 int PriorityQueue<T>::priorityKey() {
   return header->next->key;
 }
+template<typename T>
+T PriorityQueue<T>::priorityValue() {
+  return header->next->value;
+}
