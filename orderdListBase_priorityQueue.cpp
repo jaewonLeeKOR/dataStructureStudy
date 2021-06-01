@@ -14,12 +14,12 @@ struct Entry {
 template<typename T>
 class PriorityQueue {
   int priority;
-  Entry *header;
-  Entry *trailer;
+  Entry<T> *header;
+  Entry<T> *trailer;
 public:
   PriorityQueue(int p):priority(p) {
-    header = new Entry();
-    trailer = new Entry();
+    header = new Entry<T>();
+    trailer = new Entry<T>();
     header->next = trailer;
     trailer->prev = header;
   }
@@ -29,5 +29,7 @@ public:
   T priorityValue(); //우선순위 큐의 우선순위가 가정높은 entry의 value값을 리턴한다
   T rank(int rank); //우선순위 큐의 우선순위가 rank번째인 entry의 value를 리턴한다
   int size(); //우선순위 큐의 entry 갯수를 리턴한다.
-  bool empty(); //우선순위 큐가 비어있는지 리턴한다.
+  bool empty() { //우선순위 큐가 비어있는지 리턴한다.
+    return size() == 0;
+  }
 };
