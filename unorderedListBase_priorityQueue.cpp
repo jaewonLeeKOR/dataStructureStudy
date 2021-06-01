@@ -59,4 +59,16 @@ T PriorityQueue<T>::priorityValue() {
   }
   return res;
 }
+template<typename T>
+T PriorityQueue<T>::removePriority() {
+  T p = priorityValue();
+  Node<T> tmp = header->next;
+  for(; tmp != trailer; tmp = tmp->next) {
+    if(p == tmp->value)
+      break;
+  }
+  tmp->prev->next = tmp->next;
+  tmp->next->prev = tmp->prev;
+  delete tmp;
+}
 int main() {}
