@@ -36,4 +36,10 @@ int PriorityQueue<T>::size() {
     count++;
   return count;
 }
+template<typename T>
+void PriorityQueue<T>::print() {
+  for(Node<T> *tmp = header->next; tmp != trailer; tmp = tmp->next)
+    cout << tmp->value << " ";
+  cout << "\n";
+}
 int main() {}
