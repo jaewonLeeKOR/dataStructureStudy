@@ -74,3 +74,10 @@ T PriorityQueue<T>::rank(int rank) {
     tmp = tmp->next;
   return tmp->value;
 }
+template<typename T>
+int PriorityQueue<T>::size() {
+  int count = 0;
+  for(Entry<T> tmp = header->next; tmp != trailer; tmp = tmp->next)
+    count++;
+  return count;
+}
