@@ -39,8 +39,10 @@ int PriorityQueue<T>::size() {
 }
 template<typename T>
 void PriorityQueue<T>::print() {
-  for(Node<T> *tmp = header->next; tmp != trailer; tmp = tmp->next)
-    cout << tmp->value << " ";
+  PriorityQueue<T> tmp = this;
+  int count = size();
+  for(int i=0; i<count; i++)
+    cout << tmp.removePriority() << " ";
   cout << "\n";
 }
 template<typename T>
