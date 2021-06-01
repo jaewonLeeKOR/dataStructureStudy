@@ -29,4 +29,11 @@ public:
   T priorityValue();
   T removePriority();
 };
+template<typename T>
+int PriorityQueue<T>::size() {
+  int count = 0;
+  for(Node<T> *tmp = header->next; tmp != trailer; tmp = tmp->next)
+    count++;
+  return count;
+}
 int main() {}
