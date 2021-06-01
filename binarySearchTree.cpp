@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string>
 using namespace std;
 template<typename T>
 struct Node {
@@ -11,7 +12,7 @@ struct Node {
 };
 template<typename T>
 class BST {
-  Node<T> root;
+  Node<T> *root;
 public:
   BST():root(nullptr) {}
   void insert(T value, Node<T> *root = nullptr);
@@ -22,7 +23,7 @@ template<typename T>
 void BST<T>::insert(T value, Node<T> *root) {
   if(root == nullptr)
     root = this->root;
-  Node<T> newNode = new Node<T>(value);
+  Node<T> *newNode = new Node<T>(value);
   if(root == nullptr)
     this->root = newNode;
   if(root->value > value && root->left != nullptr)
@@ -97,4 +98,24 @@ void BST<T>::print(Node<T> *target) {
   cout << target->value << " ";
   print(target->right);
 }
-int main() {}
+int main() {
+  int testCase;
+  string s;
+  cout << "Insert Repeat Time : ";
+  cin >> testCase;
+  BST<int> b;
+  for(int i=0; i<testCase; i++) {
+    cin >> s;
+    if(s=="insert") {
+      int e;
+      cin >> e;
+      b.insert(e);
+    } else if(s=="remove") {
+      int e;
+      cin >> e;
+      b.remove(e);
+    } else if(s=="print") {
+      b.print();
+    }
+  }
+}
