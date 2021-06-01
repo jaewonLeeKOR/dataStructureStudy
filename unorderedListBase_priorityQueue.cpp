@@ -42,21 +42,24 @@ template<typename T>
 void PriorityQueue<T>::print() {
   int idx = 0, s = size();
   T *tmp = new T[s];
-  for(Node<T> *tmp = header->next; tmp != trailer; tmp = tmp->next)
-    tmp[idx++] = tmp->value;
+  for(Node<T> *temp = header->next; temp != trailer; temp = temp->next) {
+    tmp[idx++] = temp->value; // 배열로 복사
+  }
   for(int i=0; i<s; i++) {
-    int p = tmp[i];
-    idx = i;
+    int p = tmp[i]; // 정렬되지 않은 값중 가장 앞의 값
+    idx = i; // 정렬되지않은 값중 가장 앞의 인덱스
     for(int j=i; j<s; j++) {
-      if(tmp[j] * priority < p * priority)
+      if(tmp[j] * priority < p * priority){ // 정렬되지 않은 값중 우선순위가 높은 값을 지정
         idx = j;
+        p = tmp[j];
+      }
     }
     int t = tmp[idx];
     tmp[idx] = tmp[i];
-    tmp[i] = t;
+    tmp[i] = t; // swap
   }
   for(int i = 0; i<s; i++)
-    cout << tmp[i] << " ";
+    cout << tmp[i] << " "; // 출력
   cout << "\n";
 }
 template<typename T>
@@ -93,14 +96,16 @@ template<typename T>
 T PriorityQueue<T>::rank(int rank) {
   int idx = 0, s = size();
   T *tmp = new T[s];
-  for(Node<T> *tmp = header->next; tmp != trailer; tmp = tmp->next)
-    tmp[idx++] = tmp->value;
+  for(Node<T> *temp = header->next; temp != trailer; temp = temp->next)
+    tmp[idx++] = temp->value;
   for(int i=0; i<rank; i++) {
     int p = tmp[i];
     idx = i;
     for(int j=i; j<s; j++) {
-      if(tmp[j] * priority < p * priority)
+      if(tmp[j] * priority < p * priority) {
         idx = j;
+        p = tmp[j];
+      }
     }
     int t = tmp[idx];
     tmp[idx] = tmp[i];
