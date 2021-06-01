@@ -27,15 +27,15 @@ void BST<T>::insert(T value, Node<T> *temp) {
   Node<T> *newNode = new Node<T>(value);
   if(this->root == nullptr) // BST가 비어있을때
     this->root = newNode;
-  else if(root->value > value && temp->left != nullptr)
+  else if(temp->value > value && temp->left != nullptr) //값보다 작고 왼쪽자식이 있을경우
     insert(value, temp->left);
-  else if(root->value <= value && temp->right != nullptr)
+  else if(temp->value <= value && temp->right != nullptr) //값보다 크고 오른쪽 자식이 있을 경우
     insert(value, temp->right);
-  else if(root->value > value && temp->left == nullptr) {
+  else if(temp->value > value && temp->left == nullptr) { // 값보다 작고 왼쪽자식이 없을 경우
     temp->left = newNode;
     newNode->parent = temp;
   }
-  else if(root->value <= value && temp->right == nullptr) {
+  else if(temp->value <= value && temp->right == nullptr) { //값보다 크고 오른쪽 자식이 없을 경우
     temp->right = newNode;
     newNode->parent = temp;
   }
@@ -47,29 +47,42 @@ void BST<T>::remove(T target) {
   Node<T> *tmp = search(target, root);
   if(tmp == nullptr) // 값을 찾을 수 없을때
     return;
-  if(tmp == root && tmp->left == nullptr && tmp->right == nullptr) // 값이 루트이며, 자식이 없을때
+  if(tmp == root && tmp->left == nullptr && tmp->right == nullptr){ // 값이 루트이며, 자식이 없을때
     root = nullptr;
+    delete tmp;
+  }
   else if(tmp == root && tmp->left != nullptr && tmp->right == nullptr) { // 값이 루트이며, 자식이 왼쪽만 있을때
     root = tmp->left;
     tmp->left->parent = nullptr;
+    delete tmp;
   }
   else if(tmp == root && tmp->left == nullptr && tmp->right != nullptr) { // 값이 루트이며, 자식이 오른쪽만 있을때
     root = tmp->right;
     tmp->right->parent = nullptr;
+    delete tmp;
   }
-  else if(tmp->left == nullptr && tmp != root) { // 왼쪽 자식이 없을때
+  else if (tmp->left == nullptr && tmp->right == nullptr) {
+    if(tmp->parent->left == tmp)
+      tmp->parent->left = nullptr;
+    else if(tmp->parent->right == tmp)
+      tmp->parent->right = nullptr;
+    delete tmp;
+  }
+  else if(tmp->left == nullptr) { // 왼쪽 자식이 없을때
     tmp->right->parent = tmp->parent;
     if(tmp->parent->left == tmp)
       tmp->parent->left = tmp->right;
     else if(tmp->parent->right == tmp)
       tmp->parent->right = tmp->right;
+    delete tmp;
   }
-  else if(tmp->right == nullptr && tmp != root) { // 오른쪽 자식만 없을때
+  else if(tmp->right == nullptr) { // 오른쪽 자식만 없을때
     tmp->left->parent = tmp->parent;
     if(tmp->parent->left == tmp)
       tmp->parent->left = tmp->left;
     else if(tmp->parent->right == tmp)
       tmp->parent->right = tmp->left;
+    delete tmp;
   }
   else if(tmp->left != nullptr && tmp->right != nullptr) { //양쪽 자식 모두 있을때
     Node<T> *successor = tmp->right;
@@ -79,12 +92,13 @@ void BST<T>::remove(T target) {
     remove(tmpValue);
     tmp->value = tmpValue;
   }
-  delete tmp;
 }
 template<typename T>
 void BST<T>::print(Node<T> *target) {
   if(target == nullptr)
     target = root;
+  if(root == nullptr)
+    return;
   if(target->left != nullptr)
     print(target->left);
   cout << target->value << " ";
