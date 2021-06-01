@@ -42,4 +42,12 @@ void PriorityQueue<T>::print() {
     cout << tmp->value << " ";
   cout << "\n";
 }
+template<typename T>
+void PriorityQueue<T>::insert(T value) {
+  Node<T> *newNode = new Node<T>(value);
+  newNode->prev = trailer->prev;
+  newNode->next = trailer;
+  trailer->prev->next = newNode;
+  trailer->prev = newNode;
+}
 int main() {}
