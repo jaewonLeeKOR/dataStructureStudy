@@ -101,6 +101,8 @@ void BST<T>::print(Node<T> *target) {
     return;
   if(target->left != nullptr)
     print(target->left);
+  if(target == root)
+    cout << "r";
   cout << target->value << " ";
   if(target->right != nullptr)
     print(target->right);
