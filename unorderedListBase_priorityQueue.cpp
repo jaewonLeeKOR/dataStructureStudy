@@ -87,16 +87,26 @@ T PriorityQueue<T>::removePriority() {
   tmp->prev->next = tmp->next;
   tmp->next->prev = tmp->prev;
   delete tmp;
+  return p;
 }
 template<typename T>
 T PriorityQueue<T>::rank(int rank) {
-  PriorityQueue<T> tmp = this;
-  int count = rank-1;
-  if(count > size())
-    return (T)NULL;
-  for(int i=0; i<count; i++)
-    tmp.removePriority();
-  return tmp.priorityValue();
+  int idx = 0, s = size();
+  T *tmp = new T[s];
+  for(Node<T> *tmp = header->next; tmp != trailer; tmp = tmp->next)
+    tmp[idx++] = tmp->value;
+  for(int i=0; i<rank; i++) {
+    int p = tmp[i];
+    idx = i;
+    for(int j=i; j<s; j++) {
+      if(tmp[j] * priority < p * priority)
+        idx = j;
+    }
+    int t = tmp[idx];
+    tmp[idx] = tmp[i];
+    tmp[i] = t;
+  }
+  return tmp[rank-1];
 }
 int main() {
   int testCase, pri;
