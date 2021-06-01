@@ -16,7 +16,7 @@ public:
   BST():root(nullptr) {}
   void insert(T value, Node<T> *root = nullptr);
   void remove(T target);
-  void print();
+  void print(Node<T> *target = nullptr);
 };
 template<typename T>
 void BST<T>::insert(T value, Node<T> *root) {
@@ -86,5 +86,15 @@ void BST<T>::remove(T target) {
     tmp->value = tmpValue;
   }
   delete tmp;
+}
+template<typename T>
+void BST<T>::print(Node<T> *target) {
+  if(target == nullptr)
+    target = root;
+  if(target == nullptr)
+    return;
+  print(target->left);
+  cout << target->value << " ";
+  print(target->right);
 }
 int main() {}
