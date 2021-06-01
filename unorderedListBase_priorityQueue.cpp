@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string>
 #define asc 1 // 오름차순
 #define desc -1 // 내림차순
 using namespace std;
@@ -7,7 +8,7 @@ struct Node {
   T value;
   Node<T> *next;
   Node<T> *prev;
-  Node():next(nullptr),prev(nullptr),value(NULL) {}
+  Node():next(nullptr),prev(nullptr),value((T)NULL) {}
   Node(T v):next(nullptr),prev(nullptr),value(v) {}
 };
 template<typename T>
@@ -65,7 +66,7 @@ T PriorityQueue<T>::priorityValue() {
 template<typename T>
 T PriorityQueue<T>::removePriority() {
   T p = priorityValue();
-  Node<T> tmp = header->next;
+  Node<T> *tmp = header->next;
   for(; tmp != trailer; tmp = tmp->next) {
     if(p == tmp->value)
       break;
@@ -82,6 +83,41 @@ T PriorityQueue<T>::rank(int rank) {
     return (T)NULL;
   for(int i=0; i<count; i++)
     tmp.removePriority();
-  cout << tmp.priorityValue();
+  return tmp.priorityValue();
 }
-int main() {}
+int main() {
+  int testCase, pri;
+  string s;
+  cout << "Input Repeat Time : ";
+  cin >> testCase;
+  cout << "Input Priority (desc , asc) : ";
+  cin >> s;
+  if(s=="asc")
+    pri = asc;
+  else if(s=="desc")
+    pri = desc;
+  PriorityQueue<int> p(pri);
+  for(int i=0;i<testCase;i++)
+  {
+    cin >> s;
+    if(s=="size") {
+      cout << p.size() << "\n";
+    } else if(s=="empty") {
+      cout << p.empty() << "\n";
+    } else if(s=="print") {
+      p.print();
+    } else if(s=="insert") {
+      int e;
+      cin >> e;
+      p.insert(e);
+    } else if(s=="priorityValue") {
+      cout << p.priorityValue() << "\n";
+    } else if(s=="removePriority") {
+      cout << p.removePriority() << "\n";
+    } else if(s=="rank") {
+      int e;
+      cin >> e;
+      cout << p.rank(e) << "\n";
+    }
+  }
+}
