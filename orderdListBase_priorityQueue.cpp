@@ -59,3 +59,7 @@ T PriorityQueue<T>::removePriority() {
   delete tmp;
   return res;
 }
+template<typename T>
+int PriorityQueue<T>::priorityKey() {
+  return header->next->key;
+}
